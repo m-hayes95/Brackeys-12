@@ -89,10 +89,15 @@ namespace Player
             {
                 other.gameObject.SetActive(false);
                 //Debug.Log("HIT");
-                if (arrayLenght > 3) return;
-                mudCovers[arrayLenght].SetActive(false);
-                arrayLenght++;
+                //ChangeSprite();
             }
+        }
+        // Delete when fully using mud visuals script
+        private void ChangeSprite()
+        {
+            if (arrayLenght > 3) return;
+            mudCovers[arrayLenght].SetActive(false);
+            arrayLenght++;
         }
     }
 }
