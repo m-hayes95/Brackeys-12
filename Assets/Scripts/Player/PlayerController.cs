@@ -9,6 +9,7 @@ namespace Player
         [SerializeField, Range(1f,10f)] private float speed;
         [SerializeField, Range(1f,10f)] private float rotateForwardSpeed;
         [SerializeField] private bool useWasd;
+        [SerializeField] private bool useMouseLerp;
       
         private void Update()
         {
@@ -58,8 +59,15 @@ namespace Player
         private void MouseMovement()
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(mousePosition);
-            transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
+            //Debug.Log(mousePosition);
+            if (!useMouseLerp)
+                transform.position = Vector2.MoveTowards(
+                    transform.position, mousePosition, speed * Time.deltaTime
+                );
+            else
+                transform.position = Vector2.Lerp(
+                    transform.position, mousePosition, speed * Time.deltaTime
+                );
             MouseRotation();
         }
         private void MouseRotation()
