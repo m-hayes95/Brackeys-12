@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -78,5 +79,14 @@ namespace Player
             transform.rotation = rotation;
         }
         #endregion
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.GetComponent<TestHit>())
+            {
+                other.gameObject.SetActive(false);
+                Debug.Log("HIT");
+            }
+        }
     }
 }
