@@ -81,16 +81,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainObject: {fileID: 999258958865469924}
   hitBox: {fileID: 3675728118924687154}
+  hitBoxTransform: {fileID: 3767106276266184595}
   shadowSpriteRenderer: {fileID: 4544047134100476327}
   splashSpriteRenderer: {fileID: 6396432503764576747}
   startColour: {r: 0, g: 0, b: 0, a: 0.101960786}
-  targetColour: {r: 0, g: 0, b: 0, a: 1}
+  targetColour: {r: 0, g: 0, b: 0, a: 0.9019608}
   objectId: 0
   fallTime: 2
   splashTotalTime: 1
   splashCutoffTime: 0.2
   startFallSize: 0.1
   targetFallSize: 1
+  hitBoxStartSize: 0.6
+  hitBoxEndSize: 1
 --- !u!1 &4185821560036077404
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3767106276266184595}
+  - component: {fileID: 8340215898752147675}
   - component: {fileID: 3675728118924687154}
   m_Layer: 0
   m_Name: Hitbox
@@ -123,6 +127,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7334707946078922124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8340215898752147675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185821560036077404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d8ec7f3ebfd4f0ba9e77756f21618c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7873902840429413966}
+        m_TargetAssemblyTypeName: SplashScript, Assembly-CSharp
+        m_MethodName: SplashHitPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  listeningTag: Player
 --- !u!60 &3675728118924687154
 PolygonCollider2D:
   m_ObjectHideFlags: 0

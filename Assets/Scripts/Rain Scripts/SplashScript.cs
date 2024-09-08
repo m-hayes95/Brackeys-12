@@ -8,6 +8,7 @@ public class SplashScript : MonoBehaviour
     [Header("Componenets")]
     [SerializeField] GameObject MainObject;
     [SerializeField] PolygonCollider2D hitBox;
+    [SerializeField] Transform hitBoxTransform;
     [SerializeField] SpriteRenderer shadowSpriteRenderer;
     [SerializeField] SpriteRenderer splashSpriteRenderer;
     [SerializeField] Color startColour;
@@ -20,6 +21,8 @@ public class SplashScript : MonoBehaviour
     [SerializeField] float splashCutoffTime;
     [SerializeField] float startFallSize = .1f;
     [SerializeField] float targetFallSize = 1;
+    [SerializeField] float hitBoxStartSize = .6f;
+    [SerializeField] float hitBoxEndSize = 1;
     void Start()
     {
         splashTotalTime = splashTotalTime - splashCutoffTime;
@@ -58,6 +61,7 @@ public class SplashScript : MonoBehaviour
                     while (t < 1)
                     {
                         t += Time.deltaTime / splashTotalTime;
+                        transform.localScale = Vector3.Lerp(new Vector3 (hitBoxStartSize, hitBoxStartSize, 1), new Vector3 (hitBoxEndSize, hitBoxEndSize, 1), t);
 
                         yield return null;
                     }
@@ -72,5 +76,10 @@ public class SplashScript : MonoBehaviour
         }
         MainObject.SetActive(false);
         yield break;
+    }
+
+    public void SplashHitPlayer()
+    {
+        Debug.LogError("Player Died");
     }
 }
