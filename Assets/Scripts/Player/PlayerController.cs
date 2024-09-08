@@ -9,19 +9,15 @@ namespace Player
         [SerializeField, Range(1f,10f)] private float speed;
         [SerializeField, Range(1f,10f)] private float rotateForwardSpeed;
         [SerializeField] private bool useWasd;
-        private SpriteRenderer sprite;
-
-        private void Start()
-        {
-            sprite = GetComponentInChildren<SpriteRenderer>();
-        }
+      
         private void Update()
         {
             if (useWasd) WasdMovement();
             else MouseMovement();
         }
 
-        // Expenisve
+        #region WASD Controls
+        // Expensive
         private void WasdMovement()
         {
             Vector2 inputVector = new Vector2();
@@ -47,21 +43,32 @@ namespace Player
             
             Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0f).normalized;
             transform.position += moveDir * (speed * Time.deltaTime);
-            RotatePlayerToFoward(moveDir);
+            RotatePlayerToForward(moveDir);
         }
-
-        private void MouseMovement()
-        {
-            
-        }
-        
-        private void RotatePlayerToFoward(Vector3 moveDirection)
+        private void RotatePlayerToForward(Vector3 moveDirection)
         {
             // Rotate the player to the current forward position
             
             transform.up = Vector3.Slerp(transform.up, moveDirection,
                 rotateForwardSpeed * Time.deltaTime);
         }
+        #endregion
+
+        #region Mouse Controls
+        private void MouseMovement()
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log(mousePosition);
+            transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
+            MouseRotation();
+        }
+        private void MouseRotation()
+        {
+            Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position; // need to change
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+            transform.rotation = rotation;
+        }
+        #endregion
     }
 }
-
