@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  rotateForwardSpeed: 7.58
   useWasd: 1
 --- !u!1 &397395850
 GameObject:

@@ -6,18 +6,9 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private float speed;
+        [SerializeField, Range(1f,10f)] private float speed;
+        [SerializeField, Range(1f,10f)] private float rotateForwardSpeed;
         [SerializeField] private bool useWasd;
-        
-        [SerializeField] private enum SpriteRotation
-        {
-            MoveUp,
-            MoveDown,
-            MoveLeft,
-            MoveRight,
-        }
-        private SpriteRotation _spriteRotation;
-
         private SpriteRenderer sprite;
 
         private void Start()
@@ -28,22 +19,6 @@ namespace Player
         {
             if (useWasd) WasdMovement();
             else MouseMovement();
-            
-            switch (_spriteRotation)
-            {
-                case SpriteRotation.MoveUp:
-                    sprite.transform.rotation = Quaternion.Euler(0f,0f,0f);
-                    break;
-                case SpriteRotation.MoveDown:
-                    sprite.transform.rotation = Quaternion.Euler(0f,0f,-180f);
-                    break;
-                case SpriteRotation.MoveLeft:
-                    sprite.transform.rotation = Quaternion.Euler(0f,0f,90f);
-                    break;
-                case SpriteRotation.MoveRight:
-                    sprite.transform.rotation = Quaternion.Euler(0f,0f,-90f);
-                    break;
-            }
         }
 
         // Expenisve
@@ -53,34 +28,39 @@ namespace Player
             if (Input.GetKey(KeyCode.W))
             {
                 inputVector.y += 1;
-                _spriteRotation = SpriteRotation.MoveUp;
             }
 
             if (Input.GetKey(KeyCode.S))
             {
                 inputVector.y -= 1;
-                _spriteRotation = SpriteRotation.MoveDown;
             }
 
             if (Input.GetKey(KeyCode.D))
             {
                 inputVector.x += 1;
-                _spriteRotation = SpriteRotation.MoveRight;
             }
 
             if (Input.GetKey(KeyCode.A))
             {
                 inputVector.x -= 1;
-                _spriteRotation = SpriteRotation.MoveLeft;
             }
             
             Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0f).normalized;
             transform.position += moveDir * (speed * Time.deltaTime);
+            RotatePlayerToFoward(moveDir);
         }
 
         private void MouseMovement()
         {
             
+        }
+        
+        private void RotatePlayerToFoward(Vector3 moveDirection)
+        {
+            // Rotate the player to the current forward position
+            
+            transform.up = Vector3.Slerp(transform.up, moveDirection,
+                rotateForwardSpeed * Time.deltaTime);
         }
     }
 }
