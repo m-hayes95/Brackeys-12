@@ -11,11 +11,14 @@ namespace Player
         [SerializeField, Range(1f,10f)] private float rotateForwardSpeed;
         [SerializeField] private bool useWasd;
         [SerializeField] private bool useMouseLerp;
-      
+        [SerializeField] private GameObject[] mudCovers = new GameObject[3];
+        private int arrayLenght = 0;
+        
         private void Update()
         {
             if (useWasd) WasdMovement();
             else MouseMovement();
+            Debug.Log(arrayLenght);
         }
 
         #region WASD Controls
@@ -85,7 +88,10 @@ namespace Player
             if (other.gameObject.GetComponent<TestHit>())
             {
                 other.gameObject.SetActive(false);
-                Debug.Log("HIT");
+                //Debug.Log("HIT");
+                if (arrayLenght > 3) return;
+                mudCovers[arrayLenght].SetActive(false);
+                arrayLenght++;
             }
         }
     }
