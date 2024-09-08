@@ -18,7 +18,7 @@ namespace Player
         {
             if (useWasd) WasdMovement();
             else MouseMovement();
-            Debug.Log(arrayLenght);
+            //Debug.Log(arrayLenght);
         }
 
         #region WASD Controls
