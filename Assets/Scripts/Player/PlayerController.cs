@@ -8,7 +8,7 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField, Range(1f,10f)] private float speed;
-        [SerializeField, Range(1f,10f)] private float rotateForwardSpeed;
+        [SerializeField, Range(1f,100f)] private float rotateForwardSpeedWasd;
         [SerializeField] private bool useWasd;
         [SerializeField] private bool useMouseLerp;
         [SerializeField] private GameObject[] mudCovers = new GameObject[3];
@@ -55,7 +55,7 @@ namespace Player
             // Rotate the player to the current forward position
             
             transform.up = Vector3.Slerp(transform.up, moveDirection,
-                rotateForwardSpeed * Time.deltaTime);
+                rotateForwardSpeedWasd * Time.deltaTime);
         }
         #endregion
 
