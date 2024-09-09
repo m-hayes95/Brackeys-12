@@ -10,17 +10,10 @@ namespace Player
         [SerializeField] private bool useWasd;
         [SerializeField, Tooltip("Set mouse controls to use Lerp (does not effect wasd)")] 
         private bool useMouseLerp;
-        private DirtyMeter dirtyMeter;
-
-        private void Start()
-        {
-            dirtyMeter = GetComponent<DirtyMeter>();
-        }
         private void Update()
         {
             if (useWasd) WasdMovement();
             else MouseMovement();
-            //Debug.Log(arrayLenght);
         }
 
         #region WASD Controls
@@ -84,18 +77,5 @@ namespace Player
             transform.rotation = rotation;
         }
         #endregion
-        /*
-        #region On Hit (used for testing)
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.GetComponent<TestHit>())
-            {
-                other.gameObject.SetActive(false);
-                //Debug.Log("HIT");
-                dirtyMeter.HitByWater();
-            }
-        }
-        #endregion
-        */
     }
 }

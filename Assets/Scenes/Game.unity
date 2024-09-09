@@ -6312,6 +6312,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1906265422}
     - target: {fileID: 3520535265382436243, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
+      propertyPath: currentMud
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3520535265382436243, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
       propertyPath: waterDamage
       value: 10
       objectReference: {fileID: 0}
@@ -6354,6 +6358,14 @@ PrefabInstance:
     - target: {fileID: 6369598137938851764, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727481730372639984, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
+      propertyPath: useWasd
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727481730372639984, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
+      propertyPath: useMouseLerp
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
