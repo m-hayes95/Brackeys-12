@@ -20,22 +20,23 @@ public class MainMenuManager : MonoBehaviour
     private Color placeholderindicatorcolourB = Color.green;
     [SerializeField] Animator animator;
 
-    [SerializeField] enum controls
+    enum controls
     {
         Keys, cusor
     } 
-    controls selectedControl = controls.cusor;
+    [SerializeField] controls selectedControl = controls.cusor;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        DontDestroyOnLoad(gameObject);
     }
 
-    public IEnumerator StartGame()
+    public void StartGame()
     {
+        animator.SetTrigger("Disappear");
 
-        yield break;   
+
     }
 
     // Method to handle behavior based on platform
@@ -55,6 +56,15 @@ public class MainMenuManager : MonoBehaviour
 
     public void SwitchControls()
     {
-
+        if (selectedControl == controls.cusor)
+        {
+            selectedControl = controls.Keys;
+            controlsToggleIndicator.color = placeholderindicatorcolourA;
+        }
+        else
+        {
+            selectedControl = controls.cusor;
+            controlsToggleIndicator.color = placeholderindicatorcolourB;
+        }
     }
 }

@@ -1820,9 +1820,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd85fc3d366084dd6b6e840384cb0069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlsToggleIndicator: {fileID: 0}
+  controlsToggleIndicator: {fileID: 562422390}
   indicatorSprites: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 1462761570}
 --- !u!95 &1462761570
 Animator:
   serializedVersion: 5
