@@ -6409,7 +6409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0d3498e33bae5428fe6b6ad41d2f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 5.4
+  mudTileMap: {fileID: 1906265419}
+  totalTime: 20
 --- !u!1 &1412743353
 GameObject:
   m_ObjectHideFlags: 0
