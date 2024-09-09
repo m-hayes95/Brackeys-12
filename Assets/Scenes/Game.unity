@@ -6317,7 +6317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3520535265382436243, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
       propertyPath: waterDamage
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6369598137938851764, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
       propertyPath: m_LocalPosition.x
