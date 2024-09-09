@@ -1,42 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class DirtyMeter : MonoBehaviour
+namespace Player
 {
-    private const int GROUND_TILE_TYPE = 1;
-    
-    [SerializeField] private Tilemap tileMap;
-    [SerializeField] private int currentMud;
-    [SerializeField] private TileDataGround tileData;
-    
-    private void Update()
+    public class DirtyMeter : MonoBehaviour
     {
-        FindCurrentTileInfo();
-    }
-    private void FindCurrentTileInfo()
-    {
-        Vector3Int currentTileLocation = tileMap.WorldToCell(transform.position);
-        TileBase tile = tileMap.GetTile(currentTileLocation);
-        if (!tile)
+        public delegate void AllMudLost();
+        public static event AllMudLost OnGameOver;
+        private const int GroundTileType = 1;
+        
+        [SerializeField] private Tilemap tileMap;
+        [SerializeField] private int currentMud; // Serialized for Debugging
+        [SerializeField] private TileDataGround tileData;
+        [SerializeField, Range(1,100), Tooltip("Set how much mud water will remove when hit.")]
+        int waterDamage;
+        
+        private void Update()
         {
-            //Debug.Log("No tiles found");
-            return;
+            FindCurrentTileInfo();
         }
-        if (tileData.tileType == GROUND_TILE_TYPE)
-            CollectMudOnTile(currentTileLocation);
-    }
-    private void CollectMudOnTile(Vector3Int location)
-    {
-        // Add mud to player
-        currentMud++;
-        if (currentMud > 100)
-            currentMud = 100;
-        tileMap.SetTile(location, null);
-    }
-    public int GetPlayerMudTotal() // For UI
-    {
-        return currentMud;
+        private void FindCurrentTileInfo()
+        {
+            Vector3Int currentTileLocation = tileMap.WorldToCell(transform.position);
+            TileBase tile = tileMap.GetTile(currentTileLocation);
+            if (!tile)
+            {
+                //Debug.Log("No tiles found");
+                return;
+            }
+            if (tileData.tileType == GroundTileType)
+                CollectMudOnTile(currentTileLocation);
+        }
+        private void CollectMudOnTile(Vector3Int location)
+        {
+            // Add mud to player
+            currentMud++;
+            if (currentMud > 100)
+                currentMud = 100;
+            tileMap.SetTile(location, null);
+        }
+
+        public void HitByWater()
+        {
+            currentMud -= waterDamage;
+            if (currentMud < 0)
+            {
+                currentMud = 0;
+                OnGameOver?.Invoke(); // used in...
+            }
+                
+        }
+        public int GetPlayerMudTotal() // For UI and Sprite updates
+        {
+            return currentMud;
+        }
     }
 }

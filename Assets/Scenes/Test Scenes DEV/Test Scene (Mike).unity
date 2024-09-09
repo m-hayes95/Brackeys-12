@@ -785,6 +785,7 @@ MonoBehaviour:
   tileMap: {fileID: 496649082}
   currentMud: 20
   tileData: {fileID: 11400000, guid: 3ad5de20e24743341aca0ec20cd9b682, type: 2}
+  waterDamage: 30
 --- !u!114 &287259723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,9 +801,9 @@ MonoBehaviour:
   currentMudLevel: 0
   muddyCharacterSprites:
   - {fileID: 21300000, guid: 909419c0222719342a25adbeda0e8015, type: 3}
-  - {fileID: 21300000, guid: 3753705009f324840a1ac6b1cd1564fc, type: 3}
+  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2747690628134850419, guid: da1811871aacbb54684e850160fac5cc, type: 3}
   - {fileID: 21300000, guid: 909419c0222719342a25adbeda0e8015, type: 3}
-  - {fileID: 21300000, guid: 3753705009f324840a1ac6b1cd1564fc, type: 3}
 --- !u!1 &300022806
 GameObject:
   m_ObjectHideFlags: 0
