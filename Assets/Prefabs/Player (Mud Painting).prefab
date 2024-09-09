@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3023825311057033625}
   - component: {fileID: 788477145275446258}
-  - component: {fileID: 2452644713422082550}
-  - component: {fileID: 4967195185615509880}
+  - component: {fileID: 6709861875247753221}
+  - component: {fileID: 1147363596193130728}
   - component: {fileID: 6240227940979186052}
   - component: {fileID: 3996522337288933163}
   m_Layer: 0
@@ -51,9 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8.02
   rotateForwardSpeedWasd: 49
-  useWasd: 1
-  useMouseLerp: 0
---- !u!114 &2452644713422082550
+  useWasd: 0
+  useMouseLerp: 1
+--- !u!114 &6709861875247753221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,14 +62,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1823225235656304530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc9047839a54c44dad81903c4c36834, type: 3}
+  m_Script: {fileID: 11500000, guid: 3476a72c6e724402fa1af4281d763af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMap: {fileID: 0}
-  currentMud: 20
-  tileData: {fileID: 11400000, guid: 3ad5de20e24743341aca0ec20cd9b682, type: 2}
-  waterDamage: 10
---- !u!114 &4967195185615509880
+  player: {fileID: 3023825311057033625}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  mudMaskTextureBase: {fileID: 2800000, guid: 24c5c272ad36142bbbdaa608a07387ee, type: 3}
+  eraserTexture: {fileID: 2800000, guid: 500c6ffa837c6474e99a6f548f2fec1f, type: 3}
+  material: {fileID: -876546973899608171, guid: d680a437da52446f696f439074f0d6f7, type: 3}
+  eraserSize: 0.3
+--- !u!114 &1147363596193130728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,7 +82,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1823225235656304530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4792f5fbe6062e644b6787d4a3ce4c54, type: 3}
+  m_Script: {fileID: 11500000, guid: 6566cf48794a04564992384dabd7241d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentMudLevel: 0
