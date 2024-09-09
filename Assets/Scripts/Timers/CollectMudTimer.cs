@@ -9,6 +9,8 @@ public class CollectMudTimer : MonoBehaviour
     [SerializeField, Range(0f,60f), Tooltip("Change the amount of time that the player has to collect mud (in seconds)")]
     private float totalTime;
 
+    private bool doOnce;
+
     private float currentTime;
     private void Start()
     {
@@ -18,13 +20,14 @@ public class CollectMudTimer : MonoBehaviour
     {
         if (currentTime >= 0)
             currentTime -= Time.deltaTime;
-        else
+        else if (!doOnce)
             TimeLimitReached();
     }
 
     private void TimeLimitReached()
     {
         //Debug.Log("Time Over");
+        doOnce = true;
         OnTimeOver?.Invoke(); // No subs atm
     }
 

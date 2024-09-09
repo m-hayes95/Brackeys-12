@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,16 @@ public class Rain_Manager : MonoBehaviour
     private float baseTimeElapsed = 0;
     [SerializeField] bool gameStarted;
 
+    private void OnEnable()
+    {
+        CollectMudTimer.OnTimeOver += StartRain;
+    }
+
+    private void OnDisable()
+    {
+        CollectMudTimer.OnTimeOver -= StartRain;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +63,10 @@ public class Rain_Manager : MonoBehaviour
             i++;
         }
         availableRainSplashesCount = availableRainSplashes.Count;
+    }
 
+    private void StartRain()
+    {
         StartCoroutine(PreparatioTimer());
     }
 
