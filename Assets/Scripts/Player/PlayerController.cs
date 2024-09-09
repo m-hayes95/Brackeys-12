@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player
@@ -8,17 +5,22 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField, Range(1f,10f)] private float speed;
-        [SerializeField, Range(1f,10f)] private float rotateForwardSpeed;
+        [SerializeField, Range(1f,100f), Tooltip("Set the player rotate speed when using WASD only")] 
+        private float rotateForwardSpeedWasd;
         [SerializeField] private bool useWasd;
-        [SerializeField] private bool useMouseLerp;
-        [SerializeField] private GameObject[] mudCovers = new GameObject[3];
-        private int arrayLenght = 0;
-        
+        [SerializeField, Tooltip("Set mouse controls to use Lerp (does not effect wasd)")] 
+        private bool useMouseLerp;
+        private DirtyMeter dirtyMeter;
+
+        private void Start()
+        {
+            dirtyMeter = GetComponent<DirtyMeter>();
+        }
         private void Update()
         {
             if (useWasd) WasdMovement();
             else MouseMovement();
-            Debug.Log(arrayLenght);
+            //Debug.Log(arrayLenght);
         }
 
         #region WASD Controls
@@ -55,7 +57,7 @@ namespace Player
             // Rotate the player to the current forward position
             
             transform.up = Vector3.Slerp(transform.up, moveDirection,
-                rotateForwardSpeed * Time.deltaTime);
+                rotateForwardSpeedWasd * Time.deltaTime);
         }
         #endregion
 
@@ -83,16 +85,16 @@ namespace Player
         }
         #endregion
 
+        #region On Hit
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.GetComponent<TestHit>())
             {
                 other.gameObject.SetActive(false);
                 //Debug.Log("HIT");
-                if (arrayLenght > 3) return;
-                mudCovers[arrayLenght].SetActive(false);
-                arrayLenght++;
+                dirtyMeter.HitByWater();
             }
         }
+        #endregion
     }
 }

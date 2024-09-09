@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TestAvoidWater : MonoBehaviour
@@ -10,6 +9,7 @@ public class TestAvoidWater : MonoBehaviour
     private bool isDoing;
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P)) testWater = !testWater;
         if (testWater && !isDoing)
             StartCoroutine(WaterDropTest());
     }
