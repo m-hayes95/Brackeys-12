@@ -9,10 +9,6 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    // [Header("Buttons")]
-    // [SerializeField] Button startButton;
-    // [SerializeField] Button quitButton;
-    // [SerializeField] Button controlsToggle;
     [Header("Components")]
     [SerializeField] Image controlsToggleIndicator;
     [SerializeField] Sprite indicatorSprites;
@@ -20,6 +16,9 @@ public class MainMenuManager : MonoBehaviour
     private Color placeholderindicatorcolourB = Color.green;
     [SerializeField] Animator animator;
 
+    [Header("Menu Info")]
+    [SerializeField] bool mainMenuActive = true;
+    [SerializeField] bool canActivatePauseMenu;
     enum controls
     {
         Keys, cusor
@@ -35,8 +34,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         animator.SetTrigger("Disappear");
-
-
+        StartCoroutine(GameStartRoutine());
     }
 
     // Method to handle behavior based on platform
@@ -66,5 +64,11 @@ public class MainMenuManager : MonoBehaviour
             selectedControl = controls.cusor;
             controlsToggleIndicator.color = placeholderindicatorcolourB;
         }
+    }
+
+    IEnumerator GameStartRoutine()
+    {
+        
+        yield break;
     }
 }
