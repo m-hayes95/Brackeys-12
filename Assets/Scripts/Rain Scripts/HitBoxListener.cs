@@ -12,7 +12,7 @@ public class HitBoxListener : MonoBehaviour
     //[SerializeField] UnityEvent triggerEvent;
     //[SerializeField] string listeningTag = "Player";
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<PlayerController>())
         {

@@ -28,7 +28,7 @@ public class CollectMudTimer : MonoBehaviour
     {
         //Debug.Log("Time Over");
         doOnce = true;
-        OnTimeOver?.Invoke(); // No subs atm
+        OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText
     }
 
     public float GetCurrentTime()

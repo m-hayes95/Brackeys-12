@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -61,8 +62,8 @@ namespace Player
             {
                 currentMud = 0;
                 OnGameOver?.Invoke(); // No subs atm
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
-                
         }
         public int GetPlayerMudTotal() // For UI and Sprite updates
         {
