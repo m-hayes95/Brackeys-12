@@ -69,6 +69,7 @@ public class MainMenuManager : MonoBehaviour
     IEnumerator GameStartRoutine()
     {
         
+        
         yield break;
     }
 }
