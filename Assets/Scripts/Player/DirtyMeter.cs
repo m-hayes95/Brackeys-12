@@ -55,12 +55,12 @@ namespace Player
 
         private void HitByWater()
         {
-            Debug.Log("Hit by water!");
+            //Debug.Log("Hit by water!");
             currentMud -= waterDamage;
             if (currentMud < 0)
             {
                 currentMud = 0;
-                OnGameOver?.Invoke(); // used in...
+                OnGameOver?.Invoke(); // No subs atm
             }
                 
         }

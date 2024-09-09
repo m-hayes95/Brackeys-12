@@ -17,7 +17,7 @@ public class HitBoxListener : MonoBehaviour
         if (other.GetComponent<PlayerController>())
         {
             //triggerEvent.Invoke();
-            OnHitPlayer?.Invoke();
+            OnHitPlayer?.Invoke(); // Subscribers: DirtyMeter.HitByWater()
         }
     }
 }
