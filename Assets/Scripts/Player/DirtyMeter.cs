@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -14,7 +16,19 @@ namespace Player
         [SerializeField] private TileDataGround tileData;
         [SerializeField, Range(1,100), Tooltip("Set how much mud water will remove when hit.")]
         int waterDamage;
-        
+
+        #region Event Subscription
+        private void OnEnable()
+        {
+            HitBoxListener.OnHitPlayer += HitByWater;
+        }
+
+        private void OnDisable()
+        {
+            HitBoxListener.OnHitPlayer -= HitByWater;
+        }
+        #endregion
+
         private void Update()
         {
             FindCurrentTileInfo();
@@ -40,15 +54,16 @@ namespace Player
             tileMap.SetTile(location, null);
         }
 
-        public void HitByWater()
+        private void HitByWater()
         {
+            //Debug.Log("Hit by water!");
             currentMud -= waterDamage;
             if (currentMud < 0)
             {
                 currentMud = 0;
-                OnGameOver?.Invoke(); // used in...
+                OnGameOver?.Invoke(); // No subs atm
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
-                
         }
         public int GetPlayerMudTotal() // For UI and Sprite updates
         {

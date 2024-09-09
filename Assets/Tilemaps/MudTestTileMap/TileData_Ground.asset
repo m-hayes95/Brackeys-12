@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd58fa308a7cecd49b6cf52c732a77b9, type: 3}
-  m_Name: MudTile
+  m_Name: TileData_Ground
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 614c0b8e2c06a7a408eef221f1e5766c, type: 2}
+  - {fileID: 11400000, guid: 957304f0c904de944b09e5fd5aa6cb15, type: 2}
   tileType: 1

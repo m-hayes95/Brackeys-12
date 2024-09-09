@@ -25,7 +25,7 @@ namespace Player
         private void Update()
         {
             currentMudTotal = dirtyMeter.GetPlayerMudTotal();
-            Debug.Log(currentMudTotal);
+            //Debug.Log(currentMudTotal);
             MudLevelStateMachine();
         }
         // Change Sprite depending on how much mud the player has currently

@@ -84,8 +84,8 @@ namespace Player
             transform.rotation = rotation;
         }
         #endregion
-
-        #region On Hit
+        /*
+        #region On Hit (used for testing)
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.GetComponent<TestHit>())
@@ -96,5 +96,6 @@ namespace Player
             }
         }
         #endregion
+        */
     }
 }
