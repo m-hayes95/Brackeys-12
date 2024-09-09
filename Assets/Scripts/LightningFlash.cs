@@ -9,6 +9,8 @@ public class LightningFlash : MonoBehaviour
     [SerializeField]private float maxIntensity;
     [SerializeField]private float lerpStep;
     [SerializeField]private float lightningTimeOnScreen;
+    [SerializeField]private float stormBackgroundLightIntensity;
+    [SerializeField] private Light2D globalLight;
     private Light2D lightning;
     [SerializeField]private float maxTime;
     private float currentTime;
@@ -27,13 +29,13 @@ public class LightningFlash : MonoBehaviour
     private void RainStarted()
     {
         isRaining = true;
+        globalLight.intensity = stormBackgroundLightIntensity;
     }
 
     private void Start()
     {
         lightning = GetComponent<Light2D>();
         currentTime = maxTime;
-        Debug.Log(lightning.intensity);
     }
     private void Update()
     {

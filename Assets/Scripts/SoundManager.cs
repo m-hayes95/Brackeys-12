@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
     
     [SerializeField] private AudioSource lightningSound;
     [SerializeField] private AudioSource rainSound;
+    [SerializeField] private AudioSource sunnySound;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class SoundManager : MonoBehaviour
     private void RainStarted()
     {
         rainSound.Play();
+        sunnySound.Stop();
     }
     public void PlayLightningSound()
     {
