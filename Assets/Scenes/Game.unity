@@ -5789,6 +5789,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rain Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 3138691535608104232, guid: b8fac5e01d4ba4fbe8e6408c5a9624b6, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8308859365333243603, guid: b8fac5e01d4ba4fbe8e6408c5a9624b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5831,7 +5835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8931010229000841439, guid: b8fac5e01d4ba4fbe8e6408c5a9624b6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5943,6 +5947,14 @@ PrefabInstance:
     - target: {fileID: 20149772709458477, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3520535265382436243, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
+      propertyPath: tileMap
+      value: 
+      objectReference: {fileID: 1906265422}
+    - target: {fileID: 3520535265382436243, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
+      propertyPath: waterDamage
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6369598137938851764, guid: b4fff24d26560614caedc5376a4ac0a2, type: 3}
       propertyPath: m_LocalPosition.x
