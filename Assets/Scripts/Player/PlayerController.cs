@@ -21,6 +21,7 @@ namespace Player
         private void WasdMovement()
         {
             Vector2 inputVector = new Vector2();
+
             if (Input.GetKey(KeyCode.W))
             {
                 inputVector.y += 1;

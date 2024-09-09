@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource lightningSound;
     [SerializeField] private AudioSource rainSound;
     [SerializeField] private AudioSource sunnySound;
+    [SerializeField] private AudioSource mudSquelchSound;
 
     private void Awake()
     {
@@ -37,5 +38,11 @@ public class SoundManager : MonoBehaviour
     public void PlayLightningSound()
     {
         lightningSound.Play();
+    }
+
+    public void PlayMudSquelchSound()
+    {
+        if (!mudSquelchSound.isPlaying)
+            mudSquelchSound.Play();
     }
 }

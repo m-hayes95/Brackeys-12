@@ -29,7 +29,8 @@ public class CollectMudTimer : MonoBehaviour
     {
         //Debug.Log("Time Over");
         doOnce = true;
-        OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText
+        OnTimeOver?.Invoke(); 
+        // Event Subs: RainManager & PlayerHudUpdateText & SoundManager & DirtyMeter & LightningFlash
         mudTileMap.gameObject.SetActive(false);
     }
 

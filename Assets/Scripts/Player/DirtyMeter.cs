@@ -17,21 +17,26 @@ namespace Player
         [SerializeField, Range(1,100), Tooltip("Set how much mud water will remove when hit.")]
         int waterDamage;
 
-        #region Event Subscription
+        private bool allowMudCollection = true;
+
+        #region Event Subscriptions
         private void OnEnable()
         {
             HitBoxListener.OnHitPlayer += HitByWater;
+            CollectMudTimer.OnTimeOver += DontAllowMudCollection;
         }
 
         private void OnDisable()
         {
             HitBoxListener.OnHitPlayer -= HitByWater;
+            CollectMudTimer.OnTimeOver -= DontAllowMudCollection;
         }
         #endregion
 
         private void Update()
         {
-            FindCurrentTileInfo();
+            if (allowMudCollection)
+                FindCurrentTileInfo();
         }
         private void FindCurrentTileInfo()
         {
@@ -47,6 +52,7 @@ namespace Player
         }
         private void CollectMudOnTile(Vector3Int location)
         {
+            SoundManager.Instance.PlayMudSquelchSound();
             // Add mud to player
             currentMud++;
             if (currentMud > 100)
@@ -64,6 +70,11 @@ namespace Player
                 OnGameOver?.Invoke(); // No subs atm
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+        }
+
+        private void DontAllowMudCollection()
+        {
+            allowMudCollection = false;
         }
         public int GetPlayerMudTotal() // For UI and Sprite updates
         {
