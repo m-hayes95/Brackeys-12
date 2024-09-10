@@ -1,5 +1,4 @@
 using UnityEngine;
-
 namespace Player
 {
         public class MudVisualsPaint : MonoBehaviour
@@ -12,7 +11,7 @@ namespace Player
         [SerializeField, Tooltip("Add 4 sprites for each level of muddiness here. 0 = low, 3 = full")] 
         private Sprite[] muddyCharacterSprites = new Sprite[4];
         private Sprite defaultSprite;
-        private float currentMudTotal;
+        [SerializeField, Range(0,1)] float currentMudTotal;
 
         private void Start()
         {
@@ -22,9 +21,9 @@ namespace Player
             currentMudLevel = CurrentMudLevel.None;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            currentMudTotal = paintScript.GetTotalMud();
+            currentMudTotal = Mathf.InverseLerp(100, 0, paintScript.GetTotalMud());
             Debug.Log(currentMudTotal);
             MudLevelStateMachine();
         }
@@ -35,38 +34,38 @@ namespace Player
             {
                 case CurrentMudLevel.None:
                     spriteRenderer.sprite = defaultSprite;
-                    if (currentMudTotal > 25) currentMudLevel = CurrentMudLevel.Low;
+                    if (currentMudTotal > .10f) currentMudLevel = CurrentMudLevel.Low;
                     break;
-                case CurrentMudLevel.Low: // 25% mud collected
+                case CurrentMudLevel.Low: // 10% mud collected
                     spriteRenderer.sprite = muddyCharacterSprites[0];
                     currentMudLevel = currentMudTotal switch
                     {
-                        > 50 => CurrentMudLevel.Mid,
-                        < 25 => CurrentMudLevel.None,
+                        > .30f => CurrentMudLevel.Mid,
+                        < .10f => CurrentMudLevel.None,
                         _ => currentMudLevel
                     };
                     break;
-                case CurrentMudLevel.Mid: // 50% mud collected
+                case CurrentMudLevel.Mid: // 30% mud collected
                     spriteRenderer.sprite = muddyCharacterSprites[1];
                     currentMudLevel = currentMudTotal switch
                     {
-                        > 75 => CurrentMudLevel.High,
-                        < 50 => CurrentMudLevel.Low,
+                        > .35f => CurrentMudLevel.High,
+                        < .10f => CurrentMudLevel.Low,
                         _ => currentMudLevel
                     };
                     break;
-                case CurrentMudLevel.High: // 75% mud collected
+                case CurrentMudLevel.High: // 50% mud collected
                     spriteRenderer.sprite = muddyCharacterSprites[2];
                     currentMudLevel = currentMudTotal switch
                     {
-                        >= 100 => CurrentMudLevel.Full,
-                        < 50 => CurrentMudLevel.Mid,
+                        >= .80f => CurrentMudLevel.Full,
+                        < .50f => CurrentMudLevel.Mid,
                         _ => currentMudLevel
                     };
                     break;
-                case CurrentMudLevel.Full: // 100% mud collected
+                case CurrentMudLevel.Full: // 80% mud collected
                     spriteRenderer.sprite = muddyCharacterSprites[3];
-                    if (currentMudTotal < 100) currentMudLevel = CurrentMudLevel.High;
+                    if (currentMudTotal < .80) currentMudLevel = CurrentMudLevel.High;
                     break;
                 default:
                     break;
