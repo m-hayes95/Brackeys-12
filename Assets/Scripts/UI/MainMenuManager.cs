@@ -5,40 +5,40 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] Image controlsToggleIndicator;
-    [SerializeField] Sprite indicatorSprites;
-    private Color placeholderindicatorcolourA = Color.red;
-    private Color placeholderindicatorcolourB = Color.green;
     [SerializeField] Animator animator;
+    [SerializeField] EventSystem eventSystem;
+    [SerializeField] GameObject startButton;
 
-    [Header("Menu Info")]
+    [Header("Main Menu Info")]
     [SerializeField] bool mainMenuActive = true;
+    [SerializeField] GameObject mainMenuObject;
+    [Header("Pause Menu Info")]
+    [SerializeField] GameObject pauseMenuObject;
     [SerializeField] bool canActivatePauseMenu;
-    enum controls
-    {
-        Keys, cusor
-    } 
-    [SerializeField] controls selectedControl = controls.cusor;
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+        eventSystem.SetSelectedGameObject(startButton);
+    }
+    void Update()
+    {
+        PauseGameInput();
     }
 
     public void StartGame()
     {
-        animator.SetTrigger("Disappear");
         StartCoroutine(GameStartRoutine());
     }
 
-    // Method to handle behavior based on platform
-    public void QuitGame()
+    public void QuitGame() // Main Menu Quit Game
     {
         #if UNITY_EDITOR // If running in the Unity Editor, stop playing
             EditorApplication.isPlaying = false;
@@ -52,23 +52,40 @@ public class MainMenuManager : MonoBehaviour
         #endif
     }
 
-    public void SwitchControls()
+    IEnumerator GameStartRoutine()
     {
-        if (selectedControl == controls.cusor)
+        // Trigger the Game Start Sequence Here!
+        animator.SetTrigger("Disappear");
+        yield return new WaitForSeconds(2);
+        mainMenuObject.SetActive(false);
+        canActivatePauseMenu = true;
+        mainMenuActive = false;
+        yield break;
+    }
+
+    void PauseGameInput() // Pause Game Using ESC key
+    {
+        if (Input.GetButtonDown("Cancel") && canActivatePauseMenu)
         {
-            selectedControl = controls.Keys;
-            controlsToggleIndicator.color = placeholderindicatorcolourA;
-        }
-        else
-        {
-            selectedControl = controls.cusor;
-            controlsToggleIndicator.color = placeholderindicatorcolourB;
+            pauseMenuObject.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
-    IEnumerator GameStartRoutine()
+    public void ResumeGame() // Pause Menu Resume Game
     {
-        
+        pauseMenuObject.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void EndGame() // Pause Menu End Game
+    {
+        StartCoroutine(EndGameSequence());
+    }
+
+    IEnumerator EndGameSequence()
+    {
+        // Coroutine to stop whatever is going on (Placeholder atm, unsure if we even need this)
         yield break;
     }
 }
