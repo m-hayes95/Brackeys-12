@@ -11,8 +11,8 @@ public class SplashScript : MonoBehaviour
     [SerializeField] Transform hitBoxTransform;
     [SerializeField] SpriteRenderer shadowSpriteRenderer;
     [SerializeField] SpriteRenderer splashSpriteRenderer;
-    [SerializeField] Color startColour;
-    [SerializeField] Color targetColour;
+    // [SerializeField] Color startColour;
+    // [SerializeField] Color targetColour;
     [SerializeField] Animator animator;
 
     [Header("Splash Stats")]
@@ -39,43 +39,33 @@ public class SplashScript : MonoBehaviour
     {
         splashSpriteRenderer.enabled = false;
         shadowSpriteRenderer.enabled = true;
-        for (int i = 0; i < 2; i++)
+        animator.speed = splashTotalTime;
+        animator.Play("Splash Animation");
+
+        float t = 0;
+
+        animator.speed = 1 / fallTime;
+        animator.Play("Shadow Animation");
+
+        yield return new WaitForSeconds(fallTime);
+
+        animator.SetTrigger("Splash");
+        animator.speed = 1 / splashTotalTime;
+        shadowSpriteRenderer.enabled = false;
+        splashSpriteRenderer.enabled = true;
+        hitBox.enabled = true;
+
+        while (t < 1)
         {
-            float t = 0;
+            t += Time.deltaTime / splashTotalTime;
+            hitBoxTransform.transform.localScale = Vector3.Lerp(new Vector3 (hitBoxStartSize, hitBoxStartSize, 1), new Vector3 (hitBoxEndSize, hitBoxEndSize, 1), t);
 
-            switch (i)
-            {
-                case 0:
-                    while (t < 1)
-                    {
-                        t += Time.deltaTime / fallTime;
-
-                        transform.localScale = Vector3.Lerp(new Vector3 (startFallSize, startFallSize, 1), new Vector3 (targetFallSize, targetFallSize, 1), t);
-                        shadowSpriteRenderer.color = Color.Lerp(startColour, targetColour, t);
-                        yield return null;
-                    }
-                    shadowSpriteRenderer.enabled = false;
-                    splashSpriteRenderer.enabled = true;
-                    hitBox.enabled = true;
-                break;
-                case 1:
-                    animator.speed = splashTotalTime;
-                    animator.Play("Splash Animation");
-                    while (t < 1)
-                    {
-                        t += Time.deltaTime / splashTotalTime;
-                        hitBoxTransform.transform.localScale = Vector3.Lerp(new Vector3 (hitBoxStartSize, hitBoxStartSize, 1), new Vector3 (hitBoxEndSize, hitBoxEndSize, 1), t);
-
-                        yield return null;
-                    }
-                    hitBox.enabled = false;
-                    
-                    yield return new WaitForSeconds(splashCutoffTime);
-                    Rain_Manager.instance.ReturnSplashID(objectId);
-                break;
-            }
-            t = 0;
+            yield return null;
         }
+        hitBox.enabled = false;
+        // yield return new WaitForSeconds(splashCutoffTime);
+        Rain_Manager.instance.ReturnSplashID(objectId);
+
         MainObject.SetActive(false);
         yield break;
     }
