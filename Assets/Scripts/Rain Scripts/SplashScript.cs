@@ -13,6 +13,7 @@ public class SplashScript : MonoBehaviour
     [SerializeField] SpriteRenderer splashSpriteRenderer;
     [SerializeField] Color startColour;
     [SerializeField] Color targetColour;
+    [SerializeField] Animator animator;
 
     [Header("Splash Stats")]
     public int objectId;
@@ -58,17 +59,18 @@ public class SplashScript : MonoBehaviour
                     hitBox.enabled = true;
                 break;
                 case 1:
+                    animator.speed = splashTotalTime;
+                    animator.Play("Splash Animation");
                     while (t < 1)
                     {
                         t += Time.deltaTime / splashTotalTime;
-                        transform.localScale = Vector3.Lerp(new Vector3 (hitBoxStartSize, hitBoxStartSize, 1), new Vector3 (hitBoxEndSize, hitBoxEndSize, 1), t);
+                        hitBoxTransform.transform.localScale = Vector3.Lerp(new Vector3 (hitBoxStartSize, hitBoxStartSize, 1), new Vector3 (hitBoxEndSize, hitBoxEndSize, 1), t);
 
                         yield return null;
                     }
                     hitBox.enabled = false;
                     
                     yield return new WaitForSeconds(splashCutoffTime);
-                    // yield return new WaitForEndOfFrame();
                     Rain_Manager.instance.ReturnSplashID(objectId);
                 break;
             }

@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7334707946078922124
 Transform:
   m_ObjectHideFlags: 0
@@ -44,6 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8888891458548213598}
   - component: {fileID: 7873902840429413966}
+  - component: {fileID: 2890358552507923427}
   m_Layer: 0
   m_Name: Splash Object
   m_TagString: Untagged
@@ -86,6 +87,7 @@ MonoBehaviour:
   splashSpriteRenderer: {fileID: 6396432503764576747}
   startColour: {r: 0, g: 0, b: 0, a: 0.101960786}
   targetColour: {r: 0, g: 0, b: 0, a: 0.9019608}
+  animator: {fileID: 2890358552507923427}
   objectId: 0
   fallTime: 2
   splashTotalTime: 1
@@ -94,6 +96,27 @@ MonoBehaviour:
   targetFallSize: 1
   hitBoxStartSize: 0.6
   hitBoxEndSize: 1
+--- !u!95 &2890358552507923427
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264562434106676594}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ffd897dfa64be4e2e9ae914d9741bc38, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4185821560036077404
 GameObject:
   m_ObjectHideFlags: 0
