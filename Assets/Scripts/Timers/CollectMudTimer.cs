@@ -30,7 +30,7 @@ public class CollectMudTimer : MonoBehaviour
         //Debug.Log("Time Over");
         doOnce = true;
         OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText
-        mudTileMap.gameObject.SetActive(false);
+        //mudTileMap.gameObject.SetActive(false);
     }
 
     public float GetCurrentTime()

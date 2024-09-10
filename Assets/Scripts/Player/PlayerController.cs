@@ -10,7 +10,13 @@ namespace Player
         [SerializeField] private bool useWasd;
         [SerializeField, Tooltip("Set mouse controls to use Lerp (does not effect wasd)")] 
         private bool useMouseLerp;
-        private void Update()
+        private Rigidbody2D _rb;
+
+        private void Start()
+        {
+            
+        }
+        private void FixedUpdate()
         {
             if (useWasd) WasdMovement();
             else MouseMovement();

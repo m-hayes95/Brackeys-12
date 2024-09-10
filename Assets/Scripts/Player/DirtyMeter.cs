@@ -9,11 +9,8 @@ namespace Player
     {
         public delegate void AllMudLost();
         public static event AllMudLost OnGameOver;
-        private const int GroundTileType = 1;
         
-        [SerializeField] private Tilemap tileMap;
         [SerializeField] private int currentMud; // Serialized for Debugging
-        [SerializeField] private TileDataGround tileData;
         [SerializeField, Range(1,100), Tooltip("Set how much mud water will remove when hit.")]
         int waterDamage;
 
@@ -31,8 +28,29 @@ namespace Player
 
         private void Update()
         {
-            FindCurrentTileInfo();
+            
         }
+        
+        
+
+        private void HitByWater()
+        {
+            //Debug.Log("Hit by water!");
+            currentMud -= waterDamage;
+            if (currentMud < 0)
+            {
+                currentMud = 0;
+                OnGameOver?.Invoke(); // No subs atm
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+        public int GetPlayerMudTotal() // For UI and Sprite updates
+        {
+            return currentMud;
+        }
+
+        #region Code for tiles (not in use with painting script)
+        /*
         private void FindCurrentTileInfo()
         {
             Vector3Int currentTileLocation = tileMap.WorldToCell(transform.position);
@@ -53,21 +71,7 @@ namespace Player
                 currentMud = 100;
             tileMap.SetTile(location, null);
         }
-
-        private void HitByWater()
-        {
-            //Debug.Log("Hit by water!");
-            currentMud -= waterDamage;
-            if (currentMud < 0)
-            {
-                currentMud = 0;
-                OnGameOver?.Invoke(); // No subs atm
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-        }
-        public int GetPlayerMudTotal() // For UI and Sprite updates
-        {
-            return currentMud;
-        }
+        */
+        #endregion
     }
 }
