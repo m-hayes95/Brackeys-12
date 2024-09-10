@@ -24,10 +24,10 @@ public class SplashScript : MonoBehaviour
     [SerializeField] float targetFallSize = 1;
     [SerializeField] float hitBoxStartSize = .6f;
     [SerializeField] float hitBoxEndSize = 1;
-    void Start()
-    {
-        splashTotalTime = splashTotalTime - splashCutoffTime;
-    }
+    // void Start()
+    // {
+    //     splashTotalTime = splashTotalTime - splashCutoffTime;
+    // }
 
     public void EnabledObject()
     {
@@ -39,17 +39,18 @@ public class SplashScript : MonoBehaviour
     {
         splashSpriteRenderer.enabled = false;
         shadowSpriteRenderer.enabled = true;
-        animator.speed = splashTotalTime;
-        animator.Play("Splash Animation");
+        animator.speed = 1 / fallTime;
 
         float t = 0;
 
         animator.speed = 1 / fallTime;
+        animator.SetTrigger("Shadow");
         animator.Play("Shadow Animation");
 
         yield return new WaitForSeconds(fallTime);
 
         animator.SetTrigger("Splash");
+        animator.Play("Splash Animation");
         animator.speed = 1 / splashTotalTime;
         shadowSpriteRenderer.enabled = false;
         splashSpriteRenderer.enabled = true;
@@ -63,9 +64,8 @@ public class SplashScript : MonoBehaviour
             yield return null;
         }
         hitBox.enabled = false;
-        // yield return new WaitForSeconds(splashCutoffTime);
         Rain_Manager.instance.ReturnSplashID(objectId);
-
+        animator.Play("Idle");
         MainObject.SetActive(false);
         yield break;
     }
