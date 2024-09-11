@@ -3512,7 +3512,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5ea4443192b7943a898ab39ca936ed7e, type: 2}
+  - {fileID: -876546973899608171, guid: d680a437da52446f696f439074f0d6f7, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4448,6 +4448,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &893153505
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3988802691467723748, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_Name
+      value: CursorController
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007409210898760368, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5777ef60f37e347cbb23c6ea39ae93c8, type: 3}
 --- !u!1001 &974130846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4750,18 +4807,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 105877005}
     m_Modifications:
-    - target: {fileID: 788477145275446258, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
-      propertyPath: speed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 788477145275446258, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
-      propertyPath: useWasd
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511397098541298035, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
-      propertyPath: waterDamage
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1823225235656304530, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
       propertyPath: m_Name
       value: Player (Mud Painting)
@@ -4805,6 +4850,10 @@ PrefabInstance:
     - target: {fileID: 3023825311057033625, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6709861875247753221, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
+      propertyPath: eraserSize
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5042,3 +5091,4 @@ SceneRoots:
   - {fileID: 1914070590}
   - {fileID: 2008853922}
   - {fileID: 974130846}
+  - {fileID: 893153505}

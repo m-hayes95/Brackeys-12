@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96003c300063e664482dd5c9d776c476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 3
   rotateForwardSpeedWasd: 49
   useWasd: 0
   useMouseLerp: 1
@@ -70,9 +70,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  mudMaskTextureBase: {fileID: 2800000, guid: e7a05cc8e866240068cad8043b04451a, type: 3}
+  mudMaskTextureBase: {fileID: 2800000, guid: b2262057d9c6f4b0c9707d3d11308d8b, type: 3}
   eraserTexture: {fileID: 2800000, guid: acfb13a1827f14bb79e219cff30e6afe, type: 3}
-  material: {fileID: 2100000, guid: 5ea4443192b7943a898ab39ca936ed7e, type: 2}
+  material: {fileID: -876546973899608171, guid: d680a437da52446f696f439074f0d6f7, type: 3}
   eraserSize: 0.5
 --- !u!61 &6240227940979186052
 BoxCollider2D:
@@ -159,8 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMud: 0
-  waterDamage: 5
-  canCollectMud: 1
+  waterDamage: 3
 --- !u!114 &5872142394772021670
 MonoBehaviour:
   m_ObjectHideFlags: 0
