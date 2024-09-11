@@ -1,10 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -18,6 +12,10 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] EventSystem eventSystem;
     [SerializeField] GameObject startButton;
+    [SerializeField] CollectMudTimer mudTimerScript;
+    [SerializeField] PlayerMudPaintScript mudPaintScript;
+    [SerializeField] Rain_Manager rainManagerScript;
+    [SerializeField] Transform playerTransform;
 
     [Header("Main Menu Variables")]
     [SerializeField] bool mainMenuActive = true;
@@ -29,9 +27,15 @@ public class MainMenuManager : MonoBehaviour
     [Header("Mud Meter Variables")]
     [SerializeField] GameObject mudMeterObject;
     [SerializeField] RectTransform mudMeterTransform;
-    [SerializeField] float transitionTime = 1.5f;
+    [SerializeField] float mudMeterTransitionTime = 1.5f;
     [SerializeField] Vector3 appearPos;
     [SerializeField] Vector3 disappearPos;
+    [Header("Cloud Transition Variables")]
+    [SerializeField] RectTransform cloudTransform;
+    [SerializeField] float cloudTransitionTime = 2;
+    [SerializeField] Vector3 cloudStartPos;
+    [SerializeField] Vector3 cloudCentrePos = new();
+    [SerializeField] Vector3 cloudEndPos;
 
     // Start is called before the first frame update
     void Start()
@@ -71,7 +75,12 @@ public class MainMenuManager : MonoBehaviour
         mainMenuObject.SetActive(false);
         canActivatePauseMenu = true;
         mainMenuActive = false;
+        GlobalVariables.playerCanMove = true;
+        GlobalVariables.playerCanPaint = true;
+
         StartCoroutine(MudMeterTransition(true));
+
+        StartCoroutine(mudTimerScript.StartTimer()); // Start the Mud Timer Coroutine
         yield break;
     }
 
@@ -113,30 +122,51 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuActive = true;
         canActivatePauseMenu = false;
+        Time.timeScale = 1;
         StartCoroutine(EndGameSequence());
     }
 
     IEnumerator EndGameSequence()
     {
-        // Coroutine to stop whatever is going on (Placeholder atm, unsure if we even need this)
         animator.SetTrigger("Disappear");
         Debug.Log("Triggered Exit");
+        StopCoroutine(mudTimerScript.StartTimer()); // Stop Mud Timer
+        mudTimerScript.currentTime = 0; // Reset Time
+        rainManagerScript.StopAllCoroutines(); // Stop Rain
         StartCoroutine(MudMeterTransition(false));
-
-        yield return new WaitForSecondsRealtime(2);
+        float t = 0;
+        bool variablesReset = false;
+        while (t < 1) // Move Cloud
+        {
+            t += Time.unscaledDeltaTime / (cloudTransitionTime / 2);
+            cloudTransform.anchoredPosition = Vector3.Lerp(cloudStartPos, cloudCentrePos, t);
+            if (!variablesReset) // Reset Game Variables
+            {
+                variablesReset = true;
+                mudPaintScript.ApplyTexture(); // Consider changing this soon to an event variable?
+                GlobalVariables.score = 0;
+                GlobalVariables.playerCanMove = false;
+                GlobalVariables.playerCanPaint = false;
+                playerTransform.position = new Vector3();
+                playerTransform.rotation = new Quaternion();
+            }
+            else yield return null;
+        }
+        t = 0;
+        while (t < 1)
+        {
+            t += Time.unscaledDeltaTime / (cloudTransitionTime / 2);
+            cloudTransform.anchoredPosition = Vector3.Lerp(cloudCentrePos, cloudEndPos, t);
+            yield return null;
+        }
+        cloudTransform.anchoredPosition = cloudEndPos;
         pauseMenuObject.SetActive(false);
         mainMenuObject.SetActive(true);
         mainMenuActive = true;
-        
-        Debug.Log("Triggered Menu");
-
-        // Reset Game Stats Here or trigger an event to do so!
 
         animator.SetBool("Is Main Menu", true);
         animator.SetTrigger("Appear");
         Time.timeScale = 1;
-        Debug.Log("Triggered Menu");
-
         yield break;
     }
 
@@ -146,7 +176,7 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("Mud UI Transition Started");
         while (t < 1)
         {
-            t += Time.unscaledDeltaTime / transitionTime;
+            t += Time.unscaledDeltaTime / mudMeterTransitionTime;
             if (appearing) // Appear Transition
             {
                 mudMeterTransform.anchoredPosition = Vector3.Lerp(disappearPos, appearPos, t);

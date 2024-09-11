@@ -21,6 +21,11 @@ public class PlayerMudPaintScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ApplyTexture();
+    }
+
+    public void ApplyTexture()
+    {
         mudMaskTexture = new Texture2D(mudMaskTextureBase.width, mudMaskTextureBase.height, TextureFormat.RGBA32, false);
         mudMaskTexture.SetPixels(mudMaskTextureBase.GetPixels());
         mudMaskTexture.filterMode = FilterMode.Point;
@@ -42,7 +47,7 @@ public class PlayerMudPaintScript : MonoBehaviour
     }
     void Update()
     {
-        if (Physics.Raycast(player.position, Vector3.forward, out RaycastHit raycastHit, Mathf.Infinity, groundMask))
+        if (Physics.Raycast(player.position, Vector3.forward, out RaycastHit raycastHit, Mathf.Infinity, groundMask) && GlobalVariables.playerCanPaint)
         {
             Vector2 textureCoord = raycastHit.textureCoord;
             int pixelX = (int)(textureCoord.x * mudMaskTexture.width);
@@ -74,7 +79,7 @@ public class PlayerMudPaintScript : MonoBehaviour
         // Calculate the percentage of green pixels remaining
         float percentage = (remainingGreenPixels / totalGreenPixels) * 100f;
         float flipValue = 100f - percentage; // Flip the % value so starts at 0 and goes to 100
-        Debug.Log($"green pixels left {flipValue}%");
+        // Debug.Log($"green pixels left {flipValue}%");
         return flipValue;
     }
 

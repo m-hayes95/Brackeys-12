@@ -93,7 +93,7 @@ public class Rain_Manager : MonoBehaviour
         yield break;
     }
 
-    IEnumerator EndlessWavesRoutine()
+    public IEnumerator EndlessWavesRoutine()
     {
         while (gameStarted)
         {
