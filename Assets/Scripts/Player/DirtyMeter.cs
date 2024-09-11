@@ -15,7 +15,7 @@ namespace Player
         int waterDamage;
         
         private PlayerMudPaintScript playerMudPaintScript;
-        [SerializeField]private bool canCollectMud = true;
+        private bool canCollectMud = true;
 
         #region Event Subscription
         private void OnEnable()
