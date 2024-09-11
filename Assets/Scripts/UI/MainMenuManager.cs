@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -17,13 +19,19 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] EventSystem eventSystem;
     [SerializeField] GameObject startButton;
 
-    [Header("Main Menu Info")]
+    [Header("Main Menu Variables")]
     [SerializeField] bool mainMenuActive = true;
     [SerializeField] GameObject mainMenuObject;
-    [Header("Pause Menu Info")]
+    [Header("Pause Menu Variables")]
     [SerializeField] GameObject pauseMenuObject;
     [SerializeField] bool canActivatePauseMenu;
     [SerializeField] float timeScaleFadeTime = 1;
+    [Header("Mud Meter Variables")]
+    [SerializeField] GameObject mudMeterObject;
+    [SerializeField] RectTransform mudMeterTransform;
+    [SerializeField] float transitionTime = 1.5f;
+    [SerializeField] Vector3 appearPos;
+    [SerializeField] Vector3 disappearPos;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +71,7 @@ public class MainMenuManager : MonoBehaviour
         mainMenuObject.SetActive(false);
         canActivatePauseMenu = true;
         mainMenuActive = false;
+        StartCoroutine(MudMeterTransition(true));
         yield break;
     }
 
@@ -112,6 +121,7 @@ public class MainMenuManager : MonoBehaviour
         // Coroutine to stop whatever is going on (Placeholder atm, unsure if we even need this)
         animator.SetTrigger("Disappear");
         Debug.Log("Triggered Exit");
+        StartCoroutine(MudMeterTransition(false));
 
         yield return new WaitForSecondsRealtime(2);
         pauseMenuObject.SetActive(false);
@@ -127,6 +137,27 @@ public class MainMenuManager : MonoBehaviour
         Time.timeScale = 1;
         Debug.Log("Triggered Menu");
 
+        yield break;
+    }
+
+    IEnumerator MudMeterTransition(bool appearing)
+    {
+        float t = 0;
+        Debug.Log("Mud UI Transition Started");
+        while (t < 1)
+        {
+            t += Time.unscaledDeltaTime / transitionTime;
+            if (appearing) // Appear Transition
+            {
+                mudMeterTransform.anchoredPosition = Vector3.Lerp(disappearPos, appearPos, t);
+            }
+            else // Disappear Transition
+            {
+                mudMeterTransform.anchoredPosition = Vector3.Lerp(appearPos, disappearPos, t);
+            } 
+            yield return null;
+        }
+        Debug.Log("Mud UI Transition Ended");
         yield break;
     }
 }

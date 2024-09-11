@@ -2713,6 +2713,11 @@ MonoBehaviour:
   pauseMenuObject: {fileID: 24506211}
   canActivatePauseMenu: 0
   timeScaleFadeTime: 1
+  mudMeterObject: {fileID: 2114993604}
+  mudMeterTransform: {fileID: 2114993605}
+  transitionTime: 0.5
+  appearPos: {x: 56, y: 0, z: 0}
+  disappearPos: {x: -60, y: 0, z: 0}
 --- !u!95 &1462761570
 Animator:
   serializedVersion: 5
@@ -3281,7 +3286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56, y: 0}
+  m_AnchoredPosition: {x: -60, y: 0}
   m_SizeDelta: {x: 110.1, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2130191980
