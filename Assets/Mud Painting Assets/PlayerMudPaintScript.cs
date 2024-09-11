@@ -13,6 +13,11 @@ public class PlayerMudPaintScript : MonoBehaviour
     private float mudAmountTotal;
     private float totalGreenPixels;  // Total number of green pixels initially
 
+    private int eraserWidth;
+    private int eraserHeight;
+
+    private Color[] pixelArray;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,10 +29,11 @@ public class PlayerMudPaintScript : MonoBehaviour
         eraserTexture.filterMode = FilterMode.Point;
 
         material.SetTexture("_MudMask", mudMaskTexture);
-
+        
+        // Get mud texture start pixel info
+        UpdateMudTexturePixelArray(mudMaskTexture);
         totalGreenPixels = CalculateGreenPixels();
     }
-
     void Update()
     {
         if (Physics.Raycast(player.position, Vector3.forward, out RaycastHit raycastHit, Mathf.Infinity, groundMask))
@@ -40,25 +46,30 @@ public class PlayerMudPaintScript : MonoBehaviour
 
             mudMaskTexture.Apply();
             material.SetTexture("_MudMask", mudMaskTexture);
+            // Update pixel array when texture is updated
+            UpdateMudTexturePixelArray(mudMaskTexture); // This might be quite expensive
         }
+    }
+    private void UpdateMudTexturePixelArray(Texture2D texture)
+    {
+        pixelArray = texture.GetPixels();
+        for (int i = 0; i < 1; i++ )
+            Debug.Log(pixelArray[i]);
     }
 
     // Calculate the total amount of mud left in the texture (as a percentage of remaining green pixels)
     public float GetTotalMud()
     {
+        // Code refactored by Mike, Check old code region for old code
         float remainingGreenPixels = 0f;
-
-        for (int x = 0; x < mudMaskTexture.width; x++)
+        for (int i = 0; i < pixelArray.Length; i++)
         {
-            for (int y = 0; y < mudMaskTexture.height; y++)
-            {
-                Color pixel = mudMaskTexture.GetPixel(x, y);
-                remainingGreenPixels += pixel.g;
-            }
+            remainingGreenPixels += pixelArray[i].g;
         }
-
+        
         // Calculate the percentage of green pixels remaining
         float percentage = (remainingGreenPixels / totalGreenPixels) * 100f;
+        Debug.Log($"green pixels left {percentage}%");
         return percentage;
     }
 
@@ -66,24 +77,19 @@ public class PlayerMudPaintScript : MonoBehaviour
     private float CalculateGreenPixels()
     {
         float greenPixelCount = 0f;
-
-        for (int x = 0; x < mudMaskTexture.width; x++)
+        for (int i = 0; i < pixelArray.Length; i++)
         {
-            for (int y = 0; y < mudMaskTexture.height; y++)
-            {
-                Color pixel = mudMaskTexture.GetPixel(x, y);
-                greenPixelCount += pixel.g;  // Sum all the green channel values
-            }
+            greenPixelCount += pixelArray[i].g;
         }
-
+        //Debug.Log($"green pixels total = {greenPixelCount}");
         return greenPixelCount; // Return the initial total amount of green pixels
     }
 
     // Apply the eraser texture on the mud mask
     void ApplyEraserTexture(int pixelX, int pixelY)
     {
-        int eraserWidth = Mathf.RoundToInt(eraserTexture.width * eraserSize);
-        int eraserHeight = Mathf.RoundToInt(eraserTexture.height * eraserSize);
+        eraserWidth = Mathf.RoundToInt(eraserTexture.width * eraserSize);
+        eraserHeight = Mathf.RoundToInt(eraserTexture.height * eraserSize);
         float playerRotation = player.eulerAngles.y * Mathf.Deg2Rad;
 
         for (int x = 0; x < eraserWidth; x++)
@@ -118,4 +124,43 @@ public class PlayerMudPaintScript : MonoBehaviour
             }
         }
     }
+
+    #region Old Code
+    /*
+    public float GetTotalMud()
+    {
+        float remainingGreenPixels = 0f;
+        for (int x = 0; x < mudMaskTexture.width; x++)
+        {
+            for (int y = 0; y < mudMaskTexture.height; y++)
+            {
+                Color pixel = mudMaskTexture.GetPixel(x, y);
+                remainingGreenPixels += pixel.g;
+            }
+        }
+        // Calculate the percentage of green pixels remaining
+        float percentage = (remainingGreenPixels / totalGreenPixels) * 100f;
+        return percentage;
+    }
+    private float CalculateGreenPixels()
+    {
+        float greenPixelCount = 0f;
+
+        for (int x = 0; x < mudMaskTexture.width; x++)
+        {
+            for (int y = 0; y < mudMaskTexture.height; y++)
+            {
+                Color pixel = mudMaskTexture.GetPixel(x, y);
+                greenPixelCount += pixel.g;  // Sum all the green channel values
+            }
+        }
+
+        return greenPixelCount; // Return the initial total amount of green pixels
+    }
+        
+        
+        
+        
+    */
+    #endregion
 }
