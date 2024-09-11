@@ -3923,7 +3923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0d3498e33bae5428fe6b6ad41d2f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 60
+  totalTime: 20
 --- !u!1 &1412743353
 GameObject:
   m_ObjectHideFlags: 0
@@ -3978,6 +3978,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 105877005}
     m_Modifications:
+    - target: {fileID: 788477145275446258, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 788477145275446258, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
+      propertyPath: useWasd
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1823225235656304530, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
       propertyPath: m_Name
       value: Player (Mud Painting)
@@ -4022,17 +4030,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1147363596193130728, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1823225235656304530, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2120783723}
-    - targetCorrespondingSourceObject: {fileID: 1823225235656304530, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2120783724}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
 --- !u!4 &1435614990 stripped
 Transform:
@@ -4386,48 +4387,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08859b9de9556454a9d1fd2e856ae9e6, type: 3}
---- !u!1 &2120783717 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1823225235656304530, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
-  m_PrefabInstance: {fileID: 1435614989}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2120783723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120783717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc9047839a54c44dad81903c4c36834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMud: 0
-  waterDamage: 5
-  canCollectMud: 1
---- !u!114 &2120783724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120783717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4792f5fbe6062e644b6787d4a3ce4c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMudLevel: 0
-  muddyCharacterSprites:
-  - {fileID: 1197837375, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
-  - {fileID: 1285865004, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
-  - {fileID: 720373651, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
-  - {fileID: 433461944, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
-  lowDirtThreshold: 20
-  midDirtThreshold: 40
-  highDirtThreshold: 60
-  fullDirtThreshold: 80
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
