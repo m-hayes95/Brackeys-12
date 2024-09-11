@@ -73,7 +73,7 @@ MonoBehaviour:
   mudMaskTextureBase: {fileID: 2800000, guid: b2262057d9c6f4b0c9707d3d11308d8b, type: 3}
   eraserTexture: {fileID: 2800000, guid: acfb13a1827f14bb79e219cff30e6afe, type: 3}
   material: {fileID: -876546973899608171, guid: d680a437da52446f696f439074f0d6f7, type: 3}
-  eraserSize: 0.5
+  eraserSize: 1
 --- !u!61 &6240227940979186052
 BoxCollider2D:
   m_ObjectHideFlags: 0
