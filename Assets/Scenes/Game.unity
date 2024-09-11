@@ -3923,7 +3923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0d3498e33bae5428fe6b6ad41d2f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mudTileMap: {fileID: 0}
   totalTime: 20
 --- !u!1 &1412743353
 GameObject:
@@ -4401,7 +4400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMud: 0
-  waterDamage: 0
+  waterDamage: 5
+  canCollectMud: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

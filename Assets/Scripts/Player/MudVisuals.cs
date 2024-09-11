@@ -12,7 +12,7 @@ namespace Player
         [SerializeField, Tooltip("Add 4 sprites for each level of muddiness here. 0 = low, 3 = full")] 
         private Sprite[] muddyCharacterSprites = new Sprite[4];
         private Sprite defaultSprite;
-        private int currentMudTotal;
+        private float currentMudTotal;
 
         private void Start()
         {

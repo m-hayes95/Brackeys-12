@@ -23,7 +23,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            currentMudTotal = Mathf.InverseLerp(100, 0, paintScript.GetTotalMud());
+            //currentMudTotal = Mathf.InverseLerp(100, 0, paintScript.GetTotalMud());
             Debug.Log(currentMudTotal);
             MudLevelStateMachine();
         }

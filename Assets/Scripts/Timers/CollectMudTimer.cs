@@ -6,8 +6,6 @@ public class CollectMudTimer : MonoBehaviour
 {
     public delegate void TimeOverEvent();
     public static event TimeOverEvent OnTimeOver;
-    [SerializeField, Tooltip("Add reference to mud tie map here")] 
-    GameObject mudTileMap;
     [SerializeField, Range(0f,60f), Tooltip("Change the amount of time that the player has to collect mud (in seconds)")]
     private float totalTime;
     private bool doOnce;
@@ -29,8 +27,7 @@ public class CollectMudTimer : MonoBehaviour
     {
         //Debug.Log("Time Over");
         doOnce = true;
-        OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText
-        //mudTileMap.gameObject.SetActive(false);
+        OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText & DirtyMeter
     }
 
     public float GetCurrentTime()

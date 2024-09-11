@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 
 namespace Player
@@ -10,28 +9,43 @@ namespace Player
         public delegate void AllMudLost();
         public static event AllMudLost OnGameOver;
         
-        [SerializeField] private int currentMud; // Serialized for Debugging
-        [SerializeField, Range(1,100), Tooltip("Set how much mud water will remove when hit.")]
+        [SerializeField] private float currentMud; // Serialized for Debugging
+
+        [SerializeField, Range(1, 100), Tooltip("Set how much mud water will remove when hit.")]
         int waterDamage;
+        
+        private PlayerMudPaintScript playerMudPaintScript;
+        [SerializeField]private bool canCollectMud = true;
 
         #region Event Subscription
         private void OnEnable()
         {
             HitBoxListener.OnHitPlayer += HitByWater;
+            CollectMudTimer.OnTimeOver += StopMudCollection;
         }
 
         private void OnDisable()
         {
             HitBoxListener.OnHitPlayer -= HitByWater;
+            CollectMudTimer.OnTimeOver -= StopMudCollection;
         }
         #endregion
 
+        private void Start()
+        {
+            playerMudPaintScript = GetComponent<PlayerMudPaintScript>();
+        }
+
         private void Update()
         {
-            
+            if (canCollectMud)
+                UpdateCurrentMud();
         }
-        
-        
+
+        private void UpdateCurrentMud()
+        {
+            currentMud = playerMudPaintScript.GetTotalMud();
+        }
 
         private void HitByWater()
         {
@@ -44,7 +58,12 @@ namespace Player
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
-        public int GetPlayerMudTotal() // For UI and Sprite updates
+
+        private void StopMudCollection()
+        {
+            canCollectMud = false;
+        }
+        public float GetPlayerMudTotal() // For UI and Sprite updates
         {
             return currentMud;
         }

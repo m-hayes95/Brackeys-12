@@ -59,8 +59,6 @@ public class PlayerMudPaintScript : MonoBehaviour
     private void UpdateMudTexturePixelArray(Texture2D texture)
     {
         mudPixelArray = texture.GetPixels();
-        for (int i = 0; i < 1; i++ )
-            Debug.Log(mudPixelArray[i]);
     }
 
     // Calculate the total amount of mud left in the texture (as a percentage of remaining green pixels)
@@ -74,9 +72,10 @@ public class PlayerMudPaintScript : MonoBehaviour
         }
         
         // Calculate the percentage of green pixels remaining
-        float percentage = (remainingGreenPixels / totalGreenPixels) * 100f; // Flip so start at 0% and use that value
-        Debug.Log($"green pixels left {percentage}%");
-        return percentage;
+        float percentage = (remainingGreenPixels / totalGreenPixels) * 100f;
+        float flipValue = 100f - percentage; // Flip the % value so starts at 0 and goes to 100
+        Debug.Log($"green pixels left {flipValue}%");
+        return flipValue;
     }
 
     // Calculate the initial amount of green pixels (mud) in the texture
@@ -88,7 +87,7 @@ public class PlayerMudPaintScript : MonoBehaviour
         {
             greenPixelCount += mudPixelArray[i].g;
         }
-        //Debug.Log($"green pixels total = {greenPixelCount}");
+        //Debug.Log($"green pixels total = {mudPixelArray.Length}");
         return greenPixelCount; // Return the initial total amount of green pixels
     }
 
