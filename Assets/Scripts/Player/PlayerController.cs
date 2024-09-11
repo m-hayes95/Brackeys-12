@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Player
@@ -10,7 +11,13 @@ namespace Player
         [SerializeField] private bool useWasd;
         [SerializeField, Tooltip("Set mouse controls to use Lerp (does not effect wasd)")] 
         private bool useMouseLerp;
-        private void Update()
+        private Rigidbody2D _rb;
+
+        private void Start()
+        {
+            _rb = GetComponent<Rigidbody2D>();
+        }
+        private void FixedUpdate()
         {
             if (useWasd) WasdMovement();
             else MouseMovement();
@@ -42,8 +49,9 @@ namespace Player
             }
             
             Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0f).normalized;
-            transform.position += moveDir * (speed * Time.deltaTime);
+            transform.position += moveDir * (speed * Time.deltaTime); // change later
             RotatePlayerToForward(moveDir);
+            
         }
         private void RotatePlayerToForward(Vector3 moveDirection)
         {
@@ -59,13 +67,13 @@ namespace Player
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //Debug.Log(mousePosition);
-            if (!useMouseLerp)
-                transform.position = Vector2.MoveTowards(
-                    transform.position, mousePosition, speed * Time.deltaTime
+            if (!useMouseLerp) // According to docs, move position is not used for dynamic rb so might need to change later
+                _rb.MovePosition(
+                    Vector2.Lerp(transform.position, mousePosition, (speed * Time.deltaTime))
                 );
             else
-                transform.position = Vector2.Lerp(
-                    transform.position, mousePosition, speed * Time.deltaTime
+                _rb.MovePosition(
+                    Vector2.Lerp(transform.position, mousePosition, (speed * Time.deltaTime))
                 );
             MouseRotation();
         }

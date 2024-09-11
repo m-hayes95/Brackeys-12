@@ -13,6 +13,11 @@ public class PlayerMudPaintScript : MonoBehaviour
     private float mudAmountTotal;
     private float totalGreenPixels;  // Total number of green pixels initially
 
+    private int eraserWidth;
+    private int eraserHeight;
+
+    private Color[] mudPixelArray;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +27,19 @@ public class PlayerMudPaintScript : MonoBehaviour
         mudMaskTexture.Apply();
 
         eraserTexture.filterMode = FilterMode.Point;
-
+        ApplyEraserSize();
         material.SetTexture("_MudMask", mudMaskTexture);
-
+        
+        // Get mud texture start pixel info
+        UpdateMudTexturePixelArray(mudMaskTexture);
         totalGreenPixels = CalculateGreenPixels();
     }
 
+    private void ApplyEraserSize()
+    {
+        eraserWidth = Mathf.RoundToInt(eraserTexture.width * eraserSize);
+        eraserHeight = Mathf.RoundToInt(eraserTexture.height * eraserSize);
+    }
     void Update()
     {
         if (Physics.Raycast(player.position, Vector3.forward, out RaycastHit raycastHit, Mathf.Infinity, groundMask))
@@ -40,52 +52,54 @@ public class PlayerMudPaintScript : MonoBehaviour
 
             mudMaskTexture.Apply();
             material.SetTexture("_MudMask", mudMaskTexture);
+            // Update pixel array when texture is updated
+            UpdateMudTexturePixelArray(mudMaskTexture); // This might be quite expensive
         }
+    }
+    private void UpdateMudTexturePixelArray(Texture2D texture)
+    {
+        mudPixelArray = texture.GetPixels();
     }
 
     // Calculate the total amount of mud left in the texture (as a percentage of remaining green pixels)
     public float GetTotalMud()
     {
+        // Code refactored by Mike, Check old code region for old code
         float remainingGreenPixels = 0f;
-
-        for (int x = 0; x < mudMaskTexture.width; x++)
+        for (int i = 0; i < mudPixelArray.Length; i++)
         {
-            for (int y = 0; y < mudMaskTexture.height; y++)
-            {
-                Color pixel = mudMaskTexture.GetPixel(x, y);
-                remainingGreenPixels += pixel.g;
-            }
+            remainingGreenPixels += mudPixelArray[i].g;
         }
-
+        
         // Calculate the percentage of green pixels remaining
         float percentage = (remainingGreenPixels / totalGreenPixels) * 100f;
-        return percentage;
+        float flipValue = 100f - percentage; // Flip the % value so starts at 0 and goes to 100
+        Debug.Log($"green pixels left {flipValue}%");
+        return flipValue;
     }
 
     // Calculate the initial amount of green pixels (mud) in the texture
     private float CalculateGreenPixels()
     {
+        // Code refactored by Mike, Check old code region for old code
         float greenPixelCount = 0f;
-
-        for (int x = 0; x < mudMaskTexture.width; x++)
+        for (int i = 0; i < mudPixelArray.Length; i++)
         {
-            for (int y = 0; y < mudMaskTexture.height; y++)
-            {
-                Color pixel = mudMaskTexture.GetPixel(x, y);
-                greenPixelCount += pixel.g;  // Sum all the green channel values
-            }
+            greenPixelCount += mudPixelArray[i].g;
         }
-
+        //Debug.Log($"green pixels total = {mudPixelArray.Length}");
         return greenPixelCount; // Return the initial total amount of green pixels
     }
 
     // Apply the eraser texture on the mud mask
     void ApplyEraserTexture(int pixelX, int pixelY)
     {
-        int eraserWidth = Mathf.RoundToInt(eraserTexture.width * eraserSize);
-        int eraserHeight = Mathf.RoundToInt(eraserTexture.height * eraserSize);
+        // [Mike] Eraser size now calculated at start in ApplyEraserSize() so its not updated every frame
+        // Math sin and cos are calcualated once per call instead of each itteration
         float playerRotation = player.eulerAngles.y * Mathf.Deg2Rad;
-
+        float cosPlayerRotation = Mathf.Cos(playerRotation);
+        float sinPlayerRotation = Mathf.Sin(playerRotation);
+        
         for (int x = 0; x < eraserWidth; x++)
         {
             for (int y = 0; y < eraserHeight; y++)
@@ -96,8 +110,8 @@ public class PlayerMudPaintScript : MonoBehaviour
                 float centeredX = (normX - 0.5f) * eraserWidth;
                 float centeredY = (normY - 0.5f) * eraserHeight;
 
-                float rotatedX = centeredX * Mathf.Cos(playerRotation) - centeredY * Mathf.Sin(playerRotation);
-                float rotatedY = centeredX * Mathf.Sin(playerRotation) + centeredY * Mathf.Cos(playerRotation);
+                float rotatedX = centeredX * cosPlayerRotation - centeredY * sinPlayerRotation;
+                float rotatedY = centeredX * sinPlayerRotation + centeredY * cosPlayerRotation;
 
                 int targetX = pixelX + Mathf.RoundToInt(rotatedX);
                 int targetY = pixelY + Mathf.RoundToInt(rotatedY);
@@ -118,4 +132,46 @@ public class PlayerMudPaintScript : MonoBehaviour
             }
         }
     }
+
+    #region Old Code
+    /*
+    public float GetTotalMud()
+    {
+        float remainingGreenPixels = 0f;
+        for (int x = 0; x < mudMaskTexture.width; x++)
+        {
+            for (int y = 0; y < mudMaskTexture.height; y++)
+            {
+                Color pixel = mudMaskTexture.GetPixel(x, y);
+                remainingGreenPixels += pixel.g;
+            }
+        }
+        // Calculate the percentage of green pixels remaining
+        float percentage = (remainingGreenPixels / totalGreenPixels) * 100f;
+        return percentage;
+    }
+    private float CalculateGreenPixels()
+    {
+        float greenPixelCount = 0f;
+
+        for (int x = 0; x < mudMaskTexture.width; x++)
+        {
+            for (int y = 0; y < mudMaskTexture.height; y++)
+            {
+                Color pixel = mudMaskTexture.GetPixel(x, y);
+                greenPixelCount += pixel.g;  // Sum all the green channel values
+            }
+        }
+
+        return greenPixelCount; // Return the initial total amount of green pixels
+    }
+        void ApplyEraserTexture(int pixelX, int pixelY)
+        {
+        int eraserWidth = Mathf.RoundToInt(eraserTexture.width * eraserSize);
+        int eraserHeight = Mathf.RoundToInt(eraserTexture.height * eraserSize);
+        float rotatedX = centeredX * Mathf.Cos(playerRotation) - centeredY * Mathf.Sin(playerRotation);
+        float rotatedY = centeredX * Mathf.Sin(playerRotation) + centeredY * Mathf.Cos(playerRotation);
+        }
+    */
+    #endregion
 }

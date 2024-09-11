@@ -4,15 +4,18 @@ namespace Player
 {
         public class MudVisuals : MonoBehaviour
     {
-        // None = 0%, Low = 25%, Mid = 50%, High = 75%, Full = 100% (out of 100)
         private enum CurrentMudLevel { None, Low, Mid, High, Full }
-        [SerializeField]private CurrentMudLevel currentMudLevel;
-        private DirtyMeter dirtyMeter;
-        private SpriteRenderer spriteRenderer;
+        [SerializeField] private CurrentMudLevel currentMudLevel;
         [SerializeField, Tooltip("Add 4 sprites for each level of muddiness here. 0 = low, 3 = full")] 
         private Sprite[] muddyCharacterSprites = new Sprite[4];
+
+        [SerializeField, Range(0f,100f), Tooltip("Set a threshold for when sprites change according to how dirty the player currently is")]
+        private float lowDirtThreshold, midDirtThreshold, highDirtThreshold, fullDirtThreshold; 
+        
+        private DirtyMeter dirtyMeter;
+        private SpriteRenderer spriteRenderer;
         private Sprite defaultSprite;
-        private int currentMudTotal;
+        private float currentMudTotal;
 
         private void Start()
         {
@@ -25,7 +28,6 @@ namespace Player
         private void Update()
         {
             currentMudTotal = dirtyMeter.GetPlayerMudTotal();
-            //Debug.Log(currentMudTotal);
             MudLevelStateMachine();
         }
         // Change Sprite depending on how much mud the player has currently
@@ -35,38 +37,26 @@ namespace Player
             {
                 case CurrentMudLevel.None:
                     spriteRenderer.sprite = defaultSprite;
-                    if (currentMudTotal > 25) currentMudLevel = CurrentMudLevel.Low;
+                    if (currentMudTotal > lowDirtThreshold) currentMudLevel = CurrentMudLevel.Low;
                     break;
-                case CurrentMudLevel.Low: // 25% mud collected
+                case CurrentMudLevel.Low: 
                     spriteRenderer.sprite = muddyCharacterSprites[0];
-                    currentMudLevel = currentMudTotal switch
-                    {
-                        > 50 => CurrentMudLevel.Mid,
-                        < 25 => CurrentMudLevel.None,
-                        _ => currentMudLevel
-                    };
+                    if (currentMudTotal < lowDirtThreshold) currentMudLevel = CurrentMudLevel.None;
+                    else if (currentMudTotal > midDirtThreshold) currentMudLevel = CurrentMudLevel.Mid;
                     break;
-                case CurrentMudLevel.Mid: // 50% mud collected
+                case CurrentMudLevel.Mid:
                     spriteRenderer.sprite = muddyCharacterSprites[1];
-                    currentMudLevel = currentMudTotal switch
-                    {
-                        > 75 => CurrentMudLevel.High,
-                        < 50 => CurrentMudLevel.Low,
-                        _ => currentMudLevel
-                    };
+                    if (currentMudTotal < midDirtThreshold) currentMudLevel = CurrentMudLevel.Low;
+                    else if (currentMudTotal > highDirtThreshold) currentMudLevel = CurrentMudLevel.High;
                     break;
-                case CurrentMudLevel.High: // 75% mud collected
+                case CurrentMudLevel.High:
                     spriteRenderer.sprite = muddyCharacterSprites[2];
-                    currentMudLevel = currentMudTotal switch
-                    {
-                        >= 100 => CurrentMudLevel.Full,
-                        < 50 => CurrentMudLevel.Mid,
-                        _ => currentMudLevel
-                    };
+                    if (currentMudTotal < highDirtThreshold) currentMudLevel = CurrentMudLevel.Mid;
+                    else if (currentMudTotal > fullDirtThreshold) currentMudLevel = CurrentMudLevel.Full;
                     break;
-                case CurrentMudLevel.Full: // 100% mud collected
+                case CurrentMudLevel.Full:
                     spriteRenderer.sprite = muddyCharacterSprites[3];
-                    if (currentMudTotal < 100) currentMudLevel = CurrentMudLevel.High;
+                    if (currentMudTotal < fullDirtThreshold) currentMudLevel = CurrentMudLevel.High;
                     break;
                 default:
                     break;
