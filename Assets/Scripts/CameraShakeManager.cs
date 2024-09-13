@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
@@ -22,7 +20,7 @@ public class CameraShakeManager : MonoBehaviour
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
         shakeTimer = time;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (shakeTimer > 0)
         {

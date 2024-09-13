@@ -9,4 +9,5 @@ public class GlobalVariables : MonoBehaviour
     public static bool gameStarted;
     public static bool playerCanPaint;
     public static bool playerCanMove;
+    public static float rainSpeedMultiplier = 1;
 }

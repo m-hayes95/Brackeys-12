@@ -99,7 +99,7 @@ public class Rain_Manager : MonoBehaviour
         {
             int patternNum = Random.Range(0, 2);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1 / GlobalVariables.rainSpeedMultiplier);
             if (availableRainSplashesCount > 0)
             {
                 switch (patternNum)
