@@ -1,4 +1,7 @@
 using System.Collections;
+using Audio;
+using Player;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -16,17 +19,23 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] PlayerMudPaintScript mudPaintScript;
     [SerializeField] Rain_Manager rainManagerScript;
     [SerializeField] Transform playerTransform;
+    [SerializeField] AudioSource audioSource;
 
     [Header("Main Menu Variables")]
     [SerializeField] bool mainMenuActive = true;
     [SerializeField] GameObject mainMenuObject;
+    // [SerializeField] AudioClip menuEnterSound;
+    // [SerializeField] AudioClip menuExitSound;
     [Header("Pause Menu Variables")]
     [SerializeField] GameObject pauseMenuObject;
     [SerializeField] bool canActivatePauseMenu;
     [SerializeField] float timeScaleFadeTime = 1;
+    [SerializeField] AudioClip pauseSound;
+    [SerializeField] AudioClip unpauseSound;
     [Header("Mud Meter Variables")]
     [SerializeField] GameObject mudMeterObject;
     [SerializeField] RectTransform mudMeterTransform;
+    [SerializeField] Image mudMeterFillImage;
     [SerializeField] float mudMeterTransitionTime = 1.5f;
     [SerializeField] Vector3 appearPos;
     [SerializeField] Vector3 disappearPos;
@@ -46,10 +55,15 @@ public class MainMenuManager : MonoBehaviour
     void Update()
     {
         PauseGameInput();
+        if (GlobalVariables.gameStarted)
+        {
+            mudMeterFillImage.fillAmount = Mathf.InverseLerp(0 , 100, DirtyMeter.dirtyMeterScript.GetPlayerMudTotal());
+        }
     }
 
     public void StartGame()
     {
+        AudioManager.Instance.PauseAudio(false, .5f);
         StartCoroutine(GameStartRoutine());
     }
 
@@ -77,6 +91,8 @@ public class MainMenuManager : MonoBehaviour
         mainMenuActive = false;
         GlobalVariables.playerCanMove = true;
         GlobalVariables.playerCanPaint = true;
+        GlobalVariables.gameStarted = true;
+        GlobalVariables.gamePaused = false;
 
         StartCoroutine(MudMeterTransition(true));
 
@@ -89,16 +105,19 @@ public class MainMenuManager : MonoBehaviour
         if (Input.GetButtonDown("Cancel") && canActivatePauseMenu)
         {
             pauseMenuObject.SetActive(true);
+            audioSource.PlayOneShot(pauseSound);
             animator.SetBool("Is Main Menu", false);
             animator.SetTrigger("Appear");
             canActivatePauseMenu = false;
             Time.timeScale = 0;
+            AudioManager.Instance.PauseAudio(true, .5f);
         }
     }
 
     public void ResumeGame() // Pause Menu Resume Game
     {
         animator.SetTrigger("Disappear");
+        audioSource.PlayOneShot(unpauseSound);
         StartCoroutine(ResumeGameRoutine());
     }
 
@@ -106,6 +125,7 @@ public class MainMenuManager : MonoBehaviour
     {
         Time.timeScale = 0;
         float t = 0;
+        AudioManager.Instance.PauseAudio(false, .5f);
         while (t < 1)
         {
             t += Time.unscaledDeltaTime / timeScaleFadeTime;
@@ -122,6 +142,7 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuActive = true;
         canActivatePauseMenu = false;
+        GlobalVariables.gameStarted = false;
         Time.timeScale = 1;
         StartCoroutine(EndGameSequence());
     }
@@ -143,11 +164,11 @@ public class MainMenuManager : MonoBehaviour
             if (!variablesReset) // Reset Game Variables
             {
                 variablesReset = true;
-                mudPaintScript.ApplyTexture(); // Consider changing this soon to an event variable?
+                mudPaintScript.ApplyTexture();
                 GlobalVariables.score = 0;
                 GlobalVariables.playerCanMove = false;
                 GlobalVariables.playerCanPaint = false;
-                playerTransform.position = new Vector3();
+                playerTransform.position = new Vector3(0,0,playerTransform.position.z);
                 playerTransform.rotation = new Quaternion();
             }
             else yield return null;

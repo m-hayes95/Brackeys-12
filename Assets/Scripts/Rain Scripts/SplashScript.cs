@@ -11,8 +11,8 @@ public class SplashScript : MonoBehaviour
     [SerializeField] Transform hitBoxTransform;
     [SerializeField] SpriteRenderer shadowSpriteRenderer;
     [SerializeField] SpriteRenderer splashSpriteRenderer;
-    // [SerializeField] Color startColour;
-    // [SerializeField] Color targetColour;
+    [SerializeField] Color startColour;
+    [SerializeField] Color targetColour;
     [SerializeField] Animator animator;
 
     [Header("Splash Stats")]
@@ -48,7 +48,7 @@ public class SplashScript : MonoBehaviour
         animator.Play("Shadow Animation");
 
         yield return new WaitForSeconds(fallTime / GlobalVariables.rainSpeedMultiplier);
-
+        // Trigger Splash and Enable Hitbox
         animator.SetTrigger("Splash");
         animator.Play("Splash Animation");
         animator.speed = 1 / splashTotalTime / GlobalVariables.rainSpeedMultiplier;
@@ -66,6 +66,7 @@ public class SplashScript : MonoBehaviour
         hitBox.enabled = false;
         Rain_Manager.instance.ReturnSplashID(objectId);
         animator.Play("Idle");
+        yield return new WaitForEndOfFrame();
         MainObject.SetActive(false);
         yield break;
     }

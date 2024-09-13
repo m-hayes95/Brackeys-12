@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 namespace Audio
@@ -16,6 +17,8 @@ namespace Audio
         [SerializeField] private AudioSource peacefulTrack;
         [SerializeField] private AudioSource stormTrack;
         [SerializeField] private AudioSource mudSound; // Used for testing single sound effect
+        [SerializeField] AudioMixerSnapshot unpausedSnap;
+        [SerializeField] AudioMixerSnapshot pausedSnap;
 
         #region Singleton Pattern
         private void Awake()
@@ -101,6 +104,16 @@ namespace Audio
             }
             return index;
         }
+
+        public void PauseAudio(bool paused, float time)
+        {
+            if (paused)
+                pausedSnap.TransitionTo(time);
+            else
+                unpausedSnap.TransitionTo(time);
+            
+        }
+
         /*
         public void PlayPigSounds()
         {

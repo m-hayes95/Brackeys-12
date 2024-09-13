@@ -8,6 +8,7 @@ namespace Player
     {
         public delegate void AllMudLost();
         public static event AllMudLost OnGameOver;
+        public static DirtyMeter dirtyMeterScript;
         
         [SerializeField] private float currentMud; // Serialized for Debugging
 
@@ -15,7 +16,11 @@ namespace Player
         int waterDamage;
         
         private PlayerMudPaintScript playerMudPaintScript;
-        private bool canCollectMud = true;
+        // private bool canCollectMud = true; // Replaced with Global Variables
+        [SerializeField] float prevMud;
+        [Header("Audio")]
+        [SerializeField] AudioSource mudAudioSource;
+        [SerializeField] AudioSource playerAudioSource;
 
         #region Event Subscription
         private void OnEnable()
@@ -34,17 +39,35 @@ namespace Player
         private void Start()
         {
             playerMudPaintScript = GetComponent<PlayerMudPaintScript>();
+            dirtyMeterScript = this;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            if (canCollectMud)
+            if (GlobalVariables.playerCanPaint && !GlobalVariables.gamePaused)
                 UpdateCurrentMud();
+            else if (mudAudioSource.isPlaying)
+                mudAudioSource.Stop();
         }
-
         private void UpdateCurrentMud()
         {
+            if (!mudAudioSource.isPlaying)
+                mudAudioSource.Play();
+            
             currentMud = playerMudPaintScript.GetTotalMud();
+
+            if (Mathf.Abs(prevMud - currentMud) > 0.01f)
+            {
+                if (!mudAudioSource.isPlaying)
+                    mudAudioSource.UnPause();
+            }
+            else
+            {
+                if (mudAudioSource.isPlaying)
+                    mudAudioSource.Pause();
+            }
+
+            prevMud = Mathf.Lerp(prevMud, currentMud, 0.1f);
         }
 
         private void HitByWater()
@@ -62,7 +85,8 @@ namespace Player
 
         private void StopMudCollection()
         {
-            canCollectMud = false;
+            // canCollectMud = false;
+            GlobalVariables.playerCanPaint = false;
         }
         public float GetPlayerMudTotal() // For UI and Sprite updates
         {
