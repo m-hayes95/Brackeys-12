@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 88979c4cf530c604c8f1d89c616c11b8
+guid: 45a154e6659a04dd39f69d7df8240bad
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -39,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -94,19 +94,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -123,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pig_Mud_Full
+      name: 75_run_cycle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f2731b0ae60a4d49bc2e8fdb753fda1
-      internalID: 433461944
+      spriteID: 3734ece36396748bbbee88306fbca70b
+      internalID: 273061928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig_Mud_High
+      name: 75_run_cycle_1
       rect:
         serializedVersion: 2
         x: 16
-        y: 0
+        y: 2
         width: 16
-        height: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8c2c77d8c7bafb47930eb34ea550bdc
-      internalID: 720373651
+      spriteID: 6f109363416c440c5bd96177febaf9c4
+      internalID: -1115132540
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig_Mud_Mid
+      name: 75_run_cycle_2
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
+        y: 3
         width: 16
-        height: 32
+        height: 36
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af439cbca870a4a45b65360652779bf4
-      internalID: 1285865004
+      spriteID: 6db7aa24da4d24c08abf3771af12537d
+      internalID: 2107642761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig_Mud_Low
+      name: 75_run_cycle_3
       rect:
         serializedVersion: 2
         x: 48
-        y: 0
+        y: 6
         width: 16
-        height: 32
+        height: 39
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb5a9df602025aa4ea16f3746e70e610
-      internalID: 1197837375
+      spriteID: e842e23f80fe64287aacb4a5aa9c8ec2
+      internalID: -1610308441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig_Default
+      name: 75_run_cycle_4
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 4
         width: 16
-        height: 32
+        height: 36
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,8 +208,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 721c16d351ba95a4bb0830874f1bddc4
-      internalID: 1723033661
+      spriteID: 96c7ebadb91114b22afc20cd45e83add
+      internalID: -1211115504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 75_run_cycle_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 2
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2c3116c18cb34d05bbb412f1c54745b
+      internalID: 1344838013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 75_run_cycle_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 1
+        width: 16
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9b4560a0bc6b49d8825920ad1209321
+      internalID: 84935602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 75_run_cycle_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd4a0e74127a34fe1b3199ce1db4e021
+      internalID: -1249694482
       vertices: []
       indices: 
       edges: []
@@ -230,7 +280,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: fe8d058a9a66bac4f829d214050684d0
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -238,11 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Pig_Default: 1723033661
-      Pig_Mud_Full: 433461944
-      Pig_Mud_High: 720373651
-      Pig_Mud_Low: 1197837375
-      Pig_Mud_Mid: 1285865004
+      75_run_cycle_0: 273061928
+      75_run_cycle_1: -1115132540
+      75_run_cycle_2: 2107642761
+      75_run_cycle_3: -1610308441
+      75_run_cycle_4: -1211115504
+      75_run_cycle_5: 1344838013
+      75_run_cycle_6: 84935602
+      75_run_cycle_7: -1249694482
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
