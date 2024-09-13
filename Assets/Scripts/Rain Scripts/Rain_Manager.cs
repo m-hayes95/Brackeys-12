@@ -93,13 +93,13 @@ public class Rain_Manager : MonoBehaviour
         yield break;
     }
 
-    IEnumerator EndlessWavesRoutine()
+    public IEnumerator EndlessWavesRoutine()
     {
         while (gameStarted)
         {
             int patternNum = Random.Range(0, 2);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1 / GlobalVariables.rainSpeedMultiplier);
             if (availableRainSplashesCount > 0)
             {
                 switch (patternNum)

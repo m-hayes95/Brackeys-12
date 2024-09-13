@@ -55,7 +55,8 @@ namespace Player
             {
                 currentMud = 0;
                 OnGameOver?.Invoke(); // No subs atm
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Debug.LogError("Player was cleaned: Restart Game Here"); // Let's avoid scene loading and try make the game seamless 👍
             }
         }
 

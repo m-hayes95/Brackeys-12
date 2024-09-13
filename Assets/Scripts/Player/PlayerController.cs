@@ -19,8 +19,11 @@ namespace Player
         }
         private void FixedUpdate()
         {
-            if (useWasd) WasdMovement();
-            else MouseMovement();
+            if (GlobalVariables.playerCanMove)
+            {
+                if (useWasd) WasdMovement();
+                else MouseMovement();
+            }
         }
 
         #region WASD Controls

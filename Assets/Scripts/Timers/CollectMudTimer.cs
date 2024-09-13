@@ -10,17 +10,24 @@ public class CollectMudTimer : MonoBehaviour
     private float totalTime;
     private bool doOnce;
 
-    private float currentTime;
+    public float currentTime;
     private void Start()
     {
         currentTime = totalTime;
     }
-    private void Update()
+    public IEnumerator StartTimer()
     {
-        if (currentTime >= 0)
-            currentTime -= Time.deltaTime;
-        else if (!doOnce)
-            TimeLimitReached();
+        while (true)
+        {
+            if (currentTime >= 0)
+                currentTime -= Time.deltaTime;
+            else if (!doOnce)
+            {
+                TimeLimitReached();
+                yield break;
+            }
+            yield return null;
+        }
     }
 
     private void TimeLimitReached()

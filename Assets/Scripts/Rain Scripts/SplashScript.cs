@@ -24,10 +24,10 @@ public class SplashScript : MonoBehaviour
     [SerializeField] float targetFallSize = 1;
     [SerializeField] float hitBoxStartSize = .6f;
     [SerializeField] float hitBoxEndSize = 1;
-    // void Start()
-    // {
-    //     splashTotalTime = splashTotalTime - splashCutoffTime;
-    // }
+    void Start()
+    {
+        splashTotalTime = splashTotalTime - splashCutoffTime;
+    }
 
     public void EnabledObject()
     {
@@ -39,7 +39,7 @@ public class SplashScript : MonoBehaviour
     {
         splashSpriteRenderer.enabled = false;
         shadowSpriteRenderer.enabled = true;
-        animator.speed = 1 / fallTime;
+        animator.speed = 1 / fallTime / GlobalVariables.rainSpeedMultiplier;
 
         float t = 0;
 
@@ -47,18 +47,18 @@ public class SplashScript : MonoBehaviour
         animator.SetTrigger("Shadow");
         animator.Play("Shadow Animation");
 
-        yield return new WaitForSeconds(fallTime);
+        yield return new WaitForSeconds(fallTime / GlobalVariables.rainSpeedMultiplier);
 
         animator.SetTrigger("Splash");
         animator.Play("Splash Animation");
-        animator.speed = 1 / splashTotalTime;
+        animator.speed = 1 / splashTotalTime / GlobalVariables.rainSpeedMultiplier;
         shadowSpriteRenderer.enabled = false;
         splashSpriteRenderer.enabled = true;
         hitBox.enabled = true;
 
         while (t < 1)
         {
-            t += Time.deltaTime / splashTotalTime;
+            t += Time.deltaTime / splashTotalTime / GlobalVariables.rainSpeedMultiplier;
             hitBoxTransform.transform.localScale = Vector3.Lerp(new Vector3 (hitBoxStartSize, hitBoxStartSize, 1), new Vector3 (hitBoxEndSize, hitBoxEndSize, 1), t);
 
             yield return null;
