@@ -72,8 +72,8 @@ namespace Player
 
         private void HitByWater()
         {
-            //Debug.Log("Hit by water!");
             currentMud -= waterDamage;
+            CameraShakeManager.instance.ShakeCamera(1,.2f);
             if (currentMud < 0)
             {
                 currentMud = 0;

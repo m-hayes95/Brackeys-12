@@ -5437,6 +5437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachineVirtualCamera: {fileID: 756284256}
+  cinemachineBasicMultiChannelPerlin: {fileID: 0}
   shakeTimer: 0
 --- !u!1 &330666235
 GameObject:
@@ -6062,7 +6063,7 @@ MonoBehaviour:
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 0
-  m_FrequencyGain: 0
+  m_FrequencyGain: 2
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &709468963
 MonoBehaviour:

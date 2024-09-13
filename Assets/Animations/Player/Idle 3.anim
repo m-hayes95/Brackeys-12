@@ -27,6 +27,15 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 0}
+    attribute: m_Sprite
+    path: Player Sprite/Mud Overlay
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 1
   m_WrapMode: 0
   m_Bounds:
@@ -43,8 +52,18 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 2669706992
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 720373651, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
+    - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -85,6 +85,7 @@ namespace Player
             bool isMoving = moveMentSpeed > .05f;
             animator.SetFloat("Speed", moveMentSpeed);
             animator.SetBool("Moving", isMoving);
+            // Debug.Log("Animation Speed is: " + animator.speed);
         }
         private void MouseRotation()
         {

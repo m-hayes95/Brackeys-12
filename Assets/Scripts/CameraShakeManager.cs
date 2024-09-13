@@ -6,17 +6,16 @@ public class CameraShakeManager : MonoBehaviour
     public static CameraShakeManager instance {get; set;}
 
     [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
+    [SerializeField] CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
     [SerializeField] float shakeTimer;
     private void Awake()
     {
         instance = this;
-        cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
+        cinemachineBasicMultiChannelPerlin =
+        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
     public void ShakeCamera(float intensity, float time)
     {
-        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
-        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
         shakeTimer = time;
     }
