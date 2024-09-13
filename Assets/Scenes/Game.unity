@@ -5330,6 +5330,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580c65e628d0b4c789fea8a7d13bccfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rain_Manager: {fileID: 2114584141}
+  playerMudPaintScript: {fileID: 1435614995}
+  collectMudTimer: {fileID: 1254875038}
+  playerTransform: {fileID: 1435614990}
 --- !u!1 &278178522
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,38 +1,43 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Rain_Manager : MonoBehaviour
 {
     public static Rain_Manager instance;
     [SerializeField] Transform[] rainSpawnPositions;
-    [SerializeField] List<int> availableRainSplashes;
-    [SerializeField] List<SplashScript> rainSplashScripts;
-    public int availableRainSplashesCount = 0;
+    [SerializeField] List<int> availableRainSplashes = new List<int>();
+    [SerializeField] List<SplashScript> rainSplashScripts = new List<SplashScript>();
     [SerializeField] GameObject rainSplash;
     [SerializeField] Transform rainSplashFolder;
 
-    [Header("Rain Wave Settings")]
-    [SerializeField] int totalWaves = 10;
+    public enum RainMode { Waves, SingleEndless, WavesEndless }
+    
+    [SerializeField] [Tooltip("Choose whether or not the game should be Endless (continue when all waves are completed), or set in Waves (Stop when all waves are completed)")]
+     RainMode mode = RainMode.Waves;
+
+    [System.Serializable]
+    public struct Wave
+    {
+        public float duration; // Duration of the wave
+        public float timePerPattern; // Time per rain pattern
+        public float rainSpeed; // Animation Speed of each rain
+    }
+
+    [SerializeField] List<Wave> rainWaves = new List<Wave>();
     [SerializeField] int currentWave = 0;
-    [SerializeField] bool endlessWaves;
-    [SerializeField] List<int> rainSplashesInUse;
 
     [Header("Pattern Stats")]
     [SerializeField] int randomSplashMin = 5;
     [SerializeField] int randomSplashMax = 11;
     [SerializeField] int scatterSplashMin = 8;
     [SerializeField] int scatterSplashMax = 16;
+
     [Header("Game Stats")]
-    [SerializeField] float timeElapsed = 0;
+    [SerializeField] float timeElapsed = 0; // Debug
     private float baseTimeElapsed = 0;
-    [SerializeField] bool gameStarted;
+    [SerializeField] bool gameStarted = false;
 
     private void OnEnable()
     {
@@ -44,139 +49,166 @@ public class Rain_Manager : MonoBehaviour
         CollectMudTimer.OnTimeOver -= StartRain;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         if (instance == null)
         {
             instance = this;
         }
+        InitializeRainSplashes();
+    }
+
+    private void InitializeRainSplashes()
+    {
         int i = 0;
-        foreach (var item in rainSpawnPositions)
+        foreach (var spawnPos in rainSpawnPositions)
         {
-            // spawnVectors.Add(item.position);
-            GameObject GOBJ = Instantiate(rainSplash, item.position, quaternion.identity, rainSplashFolder);
+            GameObject GOBJ = Instantiate(rainSplash, spawnPos.position, Quaternion.identity, rainSplashFolder);
             GOBJ.name = "Rain Splash (" + i + ")";
-            GOBJ.GetComponent<SplashScript>().objectId = i;
-            rainSplashScripts.Add(GOBJ.GetComponent<SplashScript>());
+            var splashScript = GOBJ.GetComponent<SplashScript>();
+            splashScript.objectId = i;
+            rainSplashScripts.Add(splashScript);
             availableRainSplashes.Add(i);
             i++;
         }
-        availableRainSplashesCount = availableRainSplashes.Count;
     }
 
     private void StartRain()
     {
-        StartCoroutine(PreparatioTimer());
+        StartCoroutine(PreparationTimer());
     }
 
-    public void ReturnSplashID(int ID) // Sent from the Rain Splash Object
-    {
-        availableRainSplashes.Add(ID);
-    }
-
-    IEnumerator PreparatioTimer()
+    IEnumerator PreparationTimer()
     {
         yield return new WaitForSeconds(3);
 
-        if (endlessWaves)
+        gameStarted = true;
+
+        if (mode == RainMode.SingleEndless)
         {
-            gameStarted = true;
             StartCoroutine(EndlessWavesRoutine());
         }
         else
         {
-            gameStarted = true;
             StartCoroutine(StandardWavesRoutine());
         }
-
-        yield break;
     }
 
     public IEnumerator EndlessWavesRoutine()
     {
         while (gameStarted)
         {
+            Wave current = rainWaves[currentWave];
             int patternNum = Random.Range(0, 2);
 
-            yield return new WaitForSeconds(1 / GlobalVariables.rainSpeedMultiplier);
-            if (availableRainSplashesCount > 0)
+            if (availableRainSplashes.Count > 0)
             {
-                switch (patternNum)
-                {
-                    case 0:
-                        RandomSplash();
-                        Debug.Log("Random Splash");
-                        break;
-                    case 1:
-                        StartCoroutine(ScatterSplash());
-                        Debug.Log("Scatter Splash");
-                        break;
-
-                }
+                ExecutePattern(patternNum);
             }
-            yield return null;
+            yield return new WaitForSeconds(current.timePerPattern);
         }
     }
 
     IEnumerator StandardWavesRoutine()
     {
-        while (currentWave <= totalWaves && gameStarted)
+        while (currentWave < rainWaves.Count && gameStarted)
         {
-            yield return null;
+            Wave current = rainWaves[currentWave];
+            float elapsedTime = 0;
+            Debug.Log("Wave " + currentWave + " Started. Duration: " + current.duration);
+            while (elapsedTime < current.duration)
+            {
+                elapsedTime += current.timePerPattern;
+                // Debug.Log(elapsedTime);
+
+                int patternNum = Random.Range(0, 2);
+                if (availableRainSplashes.Count > 0)
+                {
+                    ExecutePattern(patternNum);
+                }
+                yield return new WaitForSeconds(current.timePerPattern);
+            }
+
+            currentWave++;
+            GlobalVariables.rainSpeedMultiplier = current.rainSpeed; // Update the rains speed;
+
+            if (currentWave >= rainWaves.Count && mode == RainMode.Waves)
+            {
+                gameStarted = false;
+                Debug.Log("Rain waves ended.");
+            }
+            else if (currentWave >= rainWaves.Count && mode == RainMode.WavesEndless)
+            {
+                currentWave = rainWaves.Count - 1; // Loop the final wave
+                Debug.Log("Rain wave " + currentWave + " Looped");
+            }
         }
-        yield break;
+    }
+
+    void ExecutePattern(int patternNum)
+    {
+        switch (patternNum)
+        {
+            case 0:
+                RandomSplash();
+                Debug.Log("Random Splash");
+                break;
+            case 1:
+                StartCoroutine(ScatterSplash());
+                Debug.Log("Scatter Splash");
+                break;
+        }
     }
 
     void RandomSplash()
     {
-        int numberOfSelections = Mathf.Min(Random.Range(randomSplashMin, randomSplashMax), availableRainSplashesCount);
+        int numberOfSelections = Mathf.Min(Random.Range(randomSplashMin, randomSplashMax), availableRainSplashes.Count);
 
-        // Create a copy of the available object list to pick unique random objects
         List<int> itemsToPickFrom = new List<int>(availableRainSplashes);
 
-        // Randomly select objects from the available list
         for (int i = 0; i < numberOfSelections; i++)
         {
-            // Ensure we are picking from the available objects
             int randomIndex = Random.Range(0, itemsToPickFrom.Count);
             int selectedObject = itemsToPickFrom[randomIndex];
 
-            // Trigger the TurnMeOn event
             rainSplashScripts[selectedObject].EnabledObject();
 
-            // Remove the selected object from the available list to prevent immediate reselection
             availableRainSplashes.Remove(selectedObject);
             itemsToPickFrom.RemoveAt(randomIndex);
         }
-
     }
 
     IEnumerator ScatterSplash()
     {
-        int numberOfSelections = Mathf.Min(Random.Range(5, 11), availableRainSplashesCount);
+        int numberOfSelections = Mathf.Min(Random.Range(scatterSplashMin, scatterSplashMax), availableRainSplashes.Count);
 
-        // Create a copy of the available object list to pick unique random objects
         List<int> itemsToPickFrom = new List<int>(availableRainSplashes);
 
-        // Randomly select objects from the available list
         for (int i = 0; i < numberOfSelections; i++)
         {
-            // Ensure we are picking from the available objects
             int randomIndex = Random.Range(0, itemsToPickFrom.Count);
             int selectedObject = itemsToPickFrom[randomIndex];
 
-            // Trigger the TurnMeOn event
             rainSplashScripts[selectedObject].EnabledObject();
 
-            // Remove the selected object from the available list to prevent immediate reselection
             availableRainSplashes.Remove(selectedObject);
             itemsToPickFrom.RemoveAt(randomIndex);
 
             yield return new WaitForSeconds(.2f);
         }
+    }
 
-        yield break;
+    public void ReturnSplashID(int ID)
+    {
+        availableRainSplashes.Add(ID);
+    }
+    public void ResetAllSplashScripts() // Reset Manager and Splash Scripts
+    {
+        StopAllCoroutines();
+        foreach (var item in rainSplashScripts)
+        {
+            item.ResetSplash();
+        }
     }
 
     void FixedUpdate()
@@ -188,4 +220,3 @@ public class Rain_Manager : MonoBehaviour
         }
     }
 }
-

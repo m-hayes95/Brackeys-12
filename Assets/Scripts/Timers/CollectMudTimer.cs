@@ -8,33 +8,34 @@ public class CollectMudTimer : MonoBehaviour
     public static event TimeOverEvent OnTimeOver;
     [SerializeField, Range(0f,60f), Tooltip("Change the amount of time that the player has to collect mud (in seconds)")]
     private float totalTime;
-    private bool doOnce;
+    Coroutine coroutine;
 
     public float currentTime;
     private void Start()
     {
         currentTime = totalTime;
     }
-    public IEnumerator StartTimer()
+    public IEnumerator Timer()
     {
-        while (true)
+        currentTime = totalTime;
+        while (currentTime >= 0)
         {
-            if (currentTime >= 0)
-                currentTime -= Time.deltaTime;
-            else if (!doOnce)
-            {
-                TimeLimitReached();
-                yield break;
-            }
+            currentTime -= Time.deltaTime;
             yield return null;
         }
+        OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText & DirtyMeter
+        yield break;
     }
 
-    private void TimeLimitReached()
+    public void EndTimer()
     {
-        //Debug.Log("Time Over");
-        doOnce = true;
-        OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText & DirtyMeter
+        StopCoroutine(coroutine);
+        currentTime = 0;
+    }
+    public void StartTimer()
+    {
+        coroutine = StartCoroutine(Timer());
+        currentTime = totalTime;
     }
 
     public float GetCurrentTime()

@@ -802,13 +802,26 @@ MonoBehaviour:
   - {fileID: 5878327093401400504}
   availableRainSplashes: 
   rainSplashScripts: []
-  availableRainSplashesCount: 0
   rainSplash: {fileID: 3264562434106676594, guid: 08859b9de9556454a9d1fd2e856ae9e6, type: 3}
   rainSplashFolder: {fileID: 4280308307991460665}
-  totalWaves: 10
+  mode: 2
+  rainWaves:
+  - duration: 5
+    timePerPattern: 2
+    rainSpeed: 1
+  - duration: 10
+    timePerPattern: 1.5
+    rainSpeed: 1.2
+  - duration: 10
+    timePerPattern: 1
+    rainSpeed: 1.5
+  - duration: 15
+    timePerPattern: 0.75
+    rainSpeed: 2
+  - duration: 20
+    timePerPattern: 0.5
+    rainSpeed: 3
   currentWave: 0
-  endlessWaves: 1
-  rainSplashesInUse: 
   randomSplashMin: 5
   randomSplashMax: 11
   scatterSplashMin: 8

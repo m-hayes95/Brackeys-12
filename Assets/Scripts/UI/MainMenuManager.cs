@@ -89,14 +89,12 @@ public class MainMenuManager : MonoBehaviour
         mainMenuObject.SetActive(false);
         canActivatePauseMenu = true;
         mainMenuActive = false;
-        GlobalVariables.playerCanMove = true;
-        GlobalVariables.playerCanPaint = true;
-        GlobalVariables.gameStarted = true;
-        GlobalVariables.gamePaused = false;
+
+        GlobalVariables.instance.StartGame();
 
         StartCoroutine(MudMeterTransition(true));
 
-        StartCoroutine(mudTimerScript.StartTimer()); // Start the Mud Timer Coroutine
+        mudTimerScript.StartTimer(); // Start the Mud Timer
         yield break;
     }
 
@@ -151,28 +149,17 @@ public class MainMenuManager : MonoBehaviour
     {
         animator.SetTrigger("Disappear");
         Debug.Log("Triggered Exit");
-        StopCoroutine(mudTimerScript.StartTimer()); // Stop Mud Timer
-        mudTimerScript.currentTime = 0; // Reset Time
-        rainManagerScript.StopAllCoroutines(); // Stop Rain
+
         StartCoroutine(MudMeterTransition(false));
         float t = 0;
-        bool variablesReset = false;
         while (t < 1) // Move Cloud
         {
             t += Time.unscaledDeltaTime / (cloudTransitionTime / 2);
             cloudTransform.anchoredPosition = Vector3.Lerp(cloudStartPos, cloudCentrePos, t);
-            if (!variablesReset) // Reset Game Variables
-            {
-                variablesReset = true;
-                mudPaintScript.ApplyTexture();
-                GlobalVariables.score = 0;
-                GlobalVariables.playerCanMove = false;
-                GlobalVariables.playerCanPaint = false;
-                playerTransform.position = new Vector3(0,0,playerTransform.position.z);
-                playerTransform.rotation = new Quaternion();
-            }
-            else yield return null;
+
+            yield return null;
         }
+        GlobalVariables.instance.ResetGame(); // Reset Game
         t = 0;
         while (t < 1)
         {
@@ -194,7 +181,6 @@ public class MainMenuManager : MonoBehaviour
     IEnumerator MudMeterTransition(bool appearing)
     {
         float t = 0;
-        Debug.Log("Mud UI Transition Started");
         while (t < 1)
         {
             t += Time.unscaledDeltaTime / mudMeterTransitionTime;
@@ -208,7 +194,6 @@ public class MainMenuManager : MonoBehaviour
             } 
             yield return null;
         }
-        Debug.Log("Mud UI Transition Ended");
         yield break;
     }
 }
