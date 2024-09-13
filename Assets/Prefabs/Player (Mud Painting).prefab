@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 3023825311057033625}
   - component: {fileID: 788477145275446258}
   - component: {fileID: 6709861875247753221}
-  - component: {fileID: 6240227940979186052}
-  - component: {fileID: 3996522337288933163}
   - component: {fileID: 1511397098541298035}
   - component: {fileID: 5872142394772021670}
   - component: {fileID: 5353783826146869738}
+  - component: {fileID: 6240227940979186052}
+  - component: {fileID: 3996522337288933163}
   m_Layer: 0
   m_Name: Player (Mud Painting)
   m_TagString: Untagged
@@ -56,6 +56,7 @@ MonoBehaviour:
   rotateForwardSpeedWasd: 49
   useWasd: 0
   useMouseLerp: 1
+  animator: {fileID: 5353783826146869738}
 --- !u!114 &6709861875247753221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +77,67 @@ MonoBehaviour:
   eraserTexture: {fileID: 2800000, guid: acfb13a1827f14bb79e219cff30e6afe, type: 3}
   material: {fileID: -876546973899608171, guid: d680a437da52446f696f439074f0d6f7, type: 3}
   eraserSize: 1
+--- !u!114 &1511397098541298035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823225235656304530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc9047839a54c44dad81903c4c36834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMud: 0
+  waterDamage: 3
+  prevMud: 0
+  mudAudioSource: {fileID: 3632892460438650565}
+  playerAudioSource: {fileID: 0}
+--- !u!114 &5872142394772021670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823225235656304530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4792f5fbe6062e644b6787d4a3ce4c54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMudLevel: 0
+  muddyCharacterSprites:
+  - {fileID: 1197837375, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
+  - {fileID: 1285865004, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
+  - {fileID: 720373651, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
+  - {fileID: 433461944, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
+  lowDirtThreshold: 5
+  midDirtThreshold: 30
+  highDirtThreshold: 55
+  fullDirtThreshold: 80
+  animator: {fileID: 5353783826146869738}
+--- !u!95 &5353783826146869738
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823225235656304530}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aa7b955fedacf4b97864f42151ba4da6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &6240227940979186052
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -148,66 +210,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1511397098541298035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823225235656304530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc9047839a54c44dad81903c4c36834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMud: 0
-  waterDamage: 3
-  prevMud: 0
-  mudAudioSource: {fileID: 3632892460438650565}
-  playerAudioSource: {fileID: 0}
---- !u!114 &5872142394772021670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823225235656304530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4792f5fbe6062e644b6787d4a3ce4c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMudLevel: 0
-  muddyCharacterSprites:
-  - {fileID: 1197837375, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
-  - {fileID: 1285865004, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
-  - {fileID: 720373651, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
-  - {fileID: 433461944, guid: 88979c4cf530c604c8f1d89c616c11b8, type: 3}
-  lowDirtThreshold: 5
-  midDirtThreshold: 30
-  highDirtThreshold: 55
-  fullDirtThreshold: 80
---- !u!95 &5353783826146869738
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823225235656304530}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aa7b955fedacf4b97864f42151ba4da6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3527901487080076310
 GameObject:
   m_ObjectHideFlags: 0

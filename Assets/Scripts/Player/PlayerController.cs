@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 namespace Player
@@ -12,6 +13,7 @@ namespace Player
         [SerializeField, Tooltip("Set mouse controls to use Lerp (does not effect wasd)")] 
         private bool useMouseLerp;
         private Rigidbody2D _rb;
+        [SerializeField] Animator animator;
 
         private void Start()
         {
@@ -76,9 +78,13 @@ namespace Player
                 );
             else
                 _rb.MovePosition(
-                    Vector2.Lerp(transform.position, mousePosition, (speed * Time.deltaTime))
+                    Vector2.Lerp(transform.position, mousePosition, speed * Time.deltaTime)
                 );
             MouseRotation();
+            float moveMentSpeed = Mathf.Round(Vector2.Distance(transform.position, mousePosition) * 10) / 10;
+            bool isMoving = moveMentSpeed > .05f;
+            animator.SetFloat("Speed", moveMentSpeed);
+            animator.SetBool("Moving", isMoving);
         }
         private void MouseRotation()
         {
