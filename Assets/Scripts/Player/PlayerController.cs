@@ -1,5 +1,7 @@
+using Audio;
 using Unity.VisualScripting;
 using UnityEngine;
+using AudioType = Audio.AudioType;
 
 namespace Player
 {
@@ -17,10 +19,21 @@ namespace Player
         {
             _rb = GetComponent<Rigidbody2D>();
         }
+
+        private void Update()
+        {
+            AudioManager.Instance.PlaySound(AudioType.PigSound_V);
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                AudioManager.Instance.StopSound(AudioType.PeacefulTrack);
+                AudioManager.Instance.PlaySound(AudioType.StormTrack);
+            }
+        }
         private void FixedUpdate()
         {
             if (useWasd) WasdMovement();
             else MouseMovement();
+            
         }
 
         #region WASD Controls

@@ -55,31 +55,43 @@ namespace Audio
         #region Control Sounds
         public void PlaySound(AudioType audioType)
         {
+            /*
             if (!soundVariantsDictionary.ContainsKey(audioType) || !singleSoundDictionary.ContainsKey(audioType))
             { 
                 Debug.LogWarning($"Audio Type: {audioType} cannot be found. Check AudioType class for compatible names");
                 return;
             }
+            */
             // Play variant track of single track depending on audio type chosen
             if (Enum.GetName(typeof(AudioType), audioType).EndsWith("V"))
             {
+                Debug.Log("Playing random variant sound");
                 AudioSource[] variants = soundVariantsDictionary[audioType];
+                //variants[4].Play(); // playing random variants does not work and playing directly here plays it twice and then stops playing
                 RepeatSoundCheck(variants, variants.Length);
             }
             else if (!singleSoundDictionary[audioType].isPlaying)
+            {
+                Debug.Log($"Played single Sound {audioType}");
                 singleSoundDictionary[audioType].Play();
+            }
+                
         }
 
         public void StopSound(AudioType audioType)
         {
+            /*
+            
             if (!soundVariantsDictionary.ContainsKey(audioType) || !singleSoundDictionary.ContainsKey(audioType))
             { 
                 Debug.LogWarning($"Audio Type: {audioType} cannot be found. Check AudioType class for compatible names");
                 return;
             }
+            */
             // Stop variant track of single track depending on audio type chosen
             if (Enum.GetName(typeof(AudioType), audioType).EndsWith("V"))
             {
+                Debug.Log($"Stoped Playing Sound variant {audioType}");
                 AudioSource[] variants = soundVariantsDictionary[audioType];
                 foreach (AudioSource source in variants)
                 {
@@ -87,7 +99,11 @@ namespace Audio
                 }
             }
             else if (singleSoundDictionary[audioType].isPlaying)
+            {
+                Debug.Log($"Stoped Playing Sound {audioType}");
                 singleSoundDictionary[audioType].Stop();
+            }
+                
         }
         #endregion
         private int RepeatSoundCheck(AudioSource[] soundVariations, int range)
