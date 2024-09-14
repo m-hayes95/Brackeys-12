@@ -13,15 +13,6 @@ public class FallingObject : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] PolygonCollider2D polyHitBox; // If applicable
     [SerializeField] CircleCollider2D circleHitBox; // If applicable
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    
 }

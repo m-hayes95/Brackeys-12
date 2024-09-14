@@ -6,7 +6,6 @@ using UnityEngine;
 public class Rain_Manager : MonoBehaviour
 {
     public static Rain_Manager instance;
-    [SerializeField] FallingObjectsManager fallingObjectsManager;
     [SerializeField] Transform[] rainSpawnPositions;
     [SerializeField] List<int> availableRainSplashes = new List<int>();
     [SerializeField] List<SplashScript> rainSplashScripts = new List<SplashScript>();
@@ -199,10 +198,10 @@ public class Rain_Manager : MonoBehaviour
         }
     }
 
-    void TriggerFallingObject()
-    {
-        fallingObjectsManager.DropObject();
-    }
+    // void TriggerFallingObject()
+    // {
+    //     fallingObjectsManager.DropObject();
+    // }
 
     public void ReturnSplashID(int ID)
     {
