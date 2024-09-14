@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class GlobalVariables : MonoBehaviour
     public CollectMudTimer collectMudTimer;
 
     public Transform playerTransform;
+    public Animator playerAnimator;
 
     void Awake()
     {
@@ -59,6 +61,9 @@ public class GlobalVariables : MonoBehaviour
         // Reset Player Position and Rotation
         playerTransform.position = new Vector3(0,0,playerTransform.position.z);
         playerTransform.rotation = new Quaternion();
+        playerAnimator.SetFloat("Speed", 0);
+        playerAnimator.SetFloat("Muddiness", 0);
+        playerAnimator.SetBool("Moving", false);
         //...
     }
 }

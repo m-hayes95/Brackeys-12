@@ -5334,6 +5334,7 @@ MonoBehaviour:
   playerMudPaintScript: {fileID: 1435614995}
   collectMudTimer: {fileID: 1254875038}
   playerTransform: {fileID: 1435614990}
+  playerAnimator: {fileID: 1435615001}
 --- !u!1 &278178522
 GameObject:
   m_ObjectHideFlags: 0
@@ -7465,6 +7466,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3476a72c6e724402fa1af4281d763af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1435615001 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5353783826146869738, guid: 38393745bdf9a4b62b37eb1cb5eeec3c, type: 3}
+  m_PrefabInstance: {fileID: 1435614989}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1761672482
 GameObject:
   m_ObjectHideFlags: 0
