@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1db6649b1330a496ea9d4c04f24cb2b8
+guid: ae503bd7ac38b4a01b7ba6ccb663a00a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -111,7 +111,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,7 +124,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,106 +136,211 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tractor_silhouette
+      name: crash_1
       rect:
         serializedVersion: 2
-        x: 3
-        y: 83
-        width: 58
-        height: 42
+        x: 7
+        y: 44
+        width: 25
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90805bf3928534489a98adbf22a58a16
-      internalID: -1671584925
+      spriteID: f78aa03f6e4f547299b309f3fefd47f5
+      internalID: 357969031
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stump_silhouette
+      name: crash_3
       rect:
         serializedVersion: 2
         x: 65
-        y: 81
+        y: 35
         width: 30
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2946a3dc5ced64715a0868adcaa7d002
+      internalID: -1797380958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crash_2
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 40
+        width: 28
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9459e143b7696438ba174e49356a89cd
+      internalID: -1817305238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crash_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 33
+        width: 32
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ccbec7eca8b1492cabca3a819e95d0c
+      internalID: 1046235818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crash_small_3
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 2
+        width: 15
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ed55a71b47be4abf898c5e987df311c
-      internalID: 761217236
+      spriteID: 96a8892ad8d8540338822d0c2e74221f
+      internalID: 1831793117
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UFO_silhouette
+      name: crash_5
       rect:
         serializedVersion: 2
-        x: 4
-        y: 3
-        width: 72
-        height: 73
+        x: 128
+        y: 31
+        width: 32
+        height: 66
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc58d9b48ff3e44d89c041c4c863f7e6
-      internalID: 1421630071
+      spriteID: 5df3c0cb21e0b4ed4a8d698546d89133
+      internalID: 233347203
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_silhouette
+      name: crash_small_1
       rect:
         serializedVersion: 2
-        x: 83
-        y: 50
-        width: 26
-        height: 28
+        x: 0
+        y: 8
+        width: 5
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8206474724adb4c5d8190d192453549f
-      internalID: 631550145
+      spriteID: dec6540ec181a4cbe8ad3b0933e88467
+      internalID: -302283616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dog_House_silhouette
+      name: crash_small_2
       rect:
         serializedVersion: 2
-        x: 81
+        x: 32
+        y: 6
+        width: 9
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92806bd47db7745c0ab3640523dcbfb7
+      internalID: 1428444544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crash_small_4
+      rect:
+        serializedVersion: 2
+        x: 100
         y: 2
-        width: 30
-        height: 44
+        width: 15
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4113d442022f44838a90dfb1b492e1f7
-      internalID: -406905593
+      spriteID: 58c06ae8889ff4cbcabd0f1e1393f07e
+      internalID: -2019283212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crash_small_5
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 1
+        width: 13
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2852770162024c41a2670df57cacef3
+      internalID: 1957866135
       vertices: []
       indices: 
       edges: []
@@ -251,11 +356,31 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dog_House_silhouette: -406905593
-      Rock_silhouette: 631550145
-      Stump_silhouette: 761217236
-      Tractor_silhouette: -1671584925
-      UFO_silhouette: 1421630071
+      crash_1: 357969031
+      crash_2: -1817305238
+      crash_3: -1797380958
+      crash_4: 1046235818
+      crash_5: 233347203
+      crash_dust_10: -564380810
+      crash_dust_11: -832395605
+      crash_dust_12: 2059627602
+      crash_dust_13: 176474740
+      crash_dust_14: 927520431
+      crash_dust_16: 914409537
+      crash_dust_18: 1307296819
+      crash_dust_20: -234555130
+      crash_dust_3: -861662679
+      crash_dust_4: 894461594
+      crash_dust_5: -1717699932
+      crash_dust_6: -40320010
+      crash_dust_7: -1297897638
+      crash_dust_8: -758709923
+      crash_dust_9: -626627273
+      crash_small_1: -302283616
+      crash_small_2: 1428444544
+      crash_small_3: 1831793117
+      crash_small_4: -2019283212
+      crash_small_5: 1957866135
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -23,8 +23,7 @@ public class CollectMudTimer : MonoBehaviour
             currentTime -= Time.deltaTime;
             yield return null;
         }
-        OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText & DirtyMeter
-        yield break;
+        OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText & DirtyMeter & Falling Object spawner
     }
 
     public void EndTimer()

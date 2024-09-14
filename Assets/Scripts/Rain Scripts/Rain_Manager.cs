@@ -198,6 +198,11 @@ public class Rain_Manager : MonoBehaviour
         }
     }
 
+    // void TriggerFallingObject()
+    // {
+    //     fallingObjectsManager.DropObject();
+    // }
+
     public void ReturnSplashID(int ID)
     {
         availableRainSplashes.Add(ID);

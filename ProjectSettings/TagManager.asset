@@ -53,6 +53,9 @@ TagManager:
   - name: Player
     uniqueID: 1148666727
     locked: 0
+  - name: Object
+    uniqueID: 3305314635
+    locked: 0
   - name: Rain
     uniqueID: 285373377
     locked: 0
