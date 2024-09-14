@@ -1,6 +1,9 @@
+using System.Collections;
+using Audio;
 using Unity.VisualScripting;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using AudioType = Audio.AudioType;
 
 namespace Player
 {
@@ -14,6 +17,7 @@ namespace Player
         private bool useMouseLerp;
         private Rigidbody2D _rb;
         [SerializeField] Animator animator;
+        private bool doOnce;
 
         private void Start()
         {
@@ -28,6 +32,24 @@ namespace Player
             }
         }
 
+        private void Update()
+        {
+            if (!doOnce && !GlobalVariables.gamePaused)
+                StartCoroutine(PlayPigSounds());
+        }
+        private IEnumerator  PlayPigSounds()
+        {
+            float delayRand = Random.Range(3f, 10f);
+            doOnce = true;
+            while (true)
+            {
+                AudioManager.Instance.PlaySound(AudioType.PigSound_V);
+                yield return new WaitForSeconds(delayRand);
+                doOnce = false;
+            }
+               
+        }
+        
         #region WASD Controls
         // Expensive
         private void WasdMovement()

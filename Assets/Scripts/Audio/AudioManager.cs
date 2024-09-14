@@ -10,15 +10,15 @@ namespace Audio
     public class AudioManager : MonoBehaviour
     {
         public static AudioManager Instance { get; private set; }
-        private Dictionary<AudioType, AudioSource[]> soundVariantsDictionary;
-        private Dictionary<AudioType, AudioSource> singleSoundDictionary;
-        [SerializeField] private AudioSource[] pigSoundsVar;
-        [SerializeField] private AudioSource[] mudSoundsVar;
+        private Dictionary<AudioType, AudioSource> soundTypeDictionary;
+        [SerializeField] private AudioSource pigSounds;
+        [SerializeField] private AudioClip[] pigSoundVariants;
         [SerializeField] private AudioSource peacefulTrack;
         [SerializeField] private AudioSource stormTrack;
         [SerializeField] private AudioSource mudSound; // Used for testing single sound effect
         [SerializeField] AudioMixerSnapshot unpausedSnap;
         [SerializeField] AudioMixerSnapshot pausedSnap;
+        private int lastClipIndex;
 
         #region Singleton Pattern
         private void Awake()
@@ -30,27 +30,18 @@ namespace Audio
         }
         #endregion
 
-        #region Dictionaries for Audio Types
+        #region Dictionary for Audio Types
         private void Start()
         {
-            PopulateSoundVariantsDictionaries();
-            PopulateSingleDictionaries();
+            PopulateAudioTypeDictionarie();
         }
-
-        private void PopulateSoundVariantsDictionaries()
+        private void PopulateAudioTypeDictionarie()
         {
-            soundVariantsDictionary = new Dictionary<AudioType, AudioSource[]>
-            {
-                { AudioType.PigSound_V, pigSoundsVar },
-                { AudioType.MudSound_V, mudSoundsVar }
-            };
-        }
-        private void PopulateSingleDictionaries()
-        {
-            singleSoundDictionary = new Dictionary<AudioType, AudioSource>
+            soundTypeDictionary = new Dictionary<AudioType, AudioSource>
             {
                 { AudioType.PeacefulTrack, peacefulTrack },
-                { AudioType.StormTrack, stormTrack }
+                { AudioType.StormTrack, stormTrack },
+                { AudioType.PigSound_V, pigSounds }
             };
         }
         #endregion
@@ -58,50 +49,45 @@ namespace Audio
         #region Control Sounds
         public void PlaySound(AudioType audioType)
         {
-            if (!soundVariantsDictionary.ContainsKey(audioType) || !singleSoundDictionary.ContainsKey(audioType))
+            if (!soundTypeDictionary.ContainsKey(audioType))
             { 
                 Debug.LogWarning($"Audio Type: {audioType} cannot be found. Check AudioType class for compatible names");
                 return;
             }
+            
             // Play variant track of single track depending on audio type chosen
-            if (Enum.GetName(typeof(AudioType), audioType).EndsWith("V"))
+            if (
+                Enum.GetName(typeof(AudioType), audioType).EndsWith("V") &&
+                    !soundTypeDictionary[audioType].isPlaying
+                )
             {
-                AudioSource[] variants = soundVariantsDictionary[audioType];
-                RepeatSoundCheck(variants, variants.Length);
+                soundTypeDictionary[audioType].PlayOneShot(pigSoundVariants[RepeatSoundCheck(pigSoundVariants.Length, lastClipIndex)]);
             }
-            else if (!singleSoundDictionary[audioType].isPlaying)
-                singleSoundDictionary[audioType].Play();
+            if (!soundTypeDictionary[audioType].isPlaying)
+                soundTypeDictionary[audioType].Play();
         }
-
         public void StopSound(AudioType audioType)
         {
-            if (!soundVariantsDictionary.ContainsKey(audioType) || !singleSoundDictionary.ContainsKey(audioType))
+            if (!soundTypeDictionary.ContainsKey(audioType))
             { 
                 Debug.LogWarning($"Audio Type: {audioType} cannot be found. Check AudioType class for compatible names");
                 return;
             }
             // Stop variant track of single track depending on audio type chosen
-            if (Enum.GetName(typeof(AudioType), audioType).EndsWith("V"))
-            {
-                AudioSource[] variants = soundVariantsDictionary[audioType];
-                foreach (AudioSource source in variants)
-                {
-                    source.Stop();
-                }
-            }
-            else if (singleSoundDictionary[audioType].isPlaying)
-                singleSoundDictionary[audioType].Stop();
+            if (soundTypeDictionary[audioType].isPlaying)
+                soundTypeDictionary[audioType].Stop();
         }
-        #endregion
-        private int RepeatSoundCheck(AudioSource[] soundVariations, int range)
+        
+        private int RepeatSoundCheck(int range, int lastIndex)
         {
             int index = Random.Range(0, range);
-            if (range == 1)
-                return index;
-            while (soundVariations[index].isPlaying)
+            while (index == lastIndex)
             {
                 index = Random.Range(0, range);
             }
+
+            Debug.Log($"Played Pig sound {index}");
+            lastClipIndex = index;
             return index;
         }
 
@@ -111,32 +97,8 @@ namespace Audio
                 pausedSnap.TransitionTo(time);
             else
                 unpausedSnap.TransitionTo(time);
-            
         }
-
-        /*
-        public void PlayPigSounds()
-        {
-            int index = RepeatSoundCheck(pigSoundsVar, pigSoundsVar.Length);
-            pigSoundsVar[index].Play();
-        }
-
-        public void PlayMovingSound()
-        {
-            if (!mudSound.isPlaying)
-            {
-                mudSound.Play();
-            }
-        }
-
-        private void StopSound(AudioSource sound)
-        {
-            if (sound.isPlaying)
-                sound.Stop();
-        }
-        */
-        
-        
+        #endregion
     }
 }
 
