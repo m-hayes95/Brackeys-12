@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using Random = UnityEngine.Random;
+using UnityEngine.Playables;
 
 namespace Audio
 {
@@ -13,11 +14,12 @@ namespace Audio
         private Dictionary<AudioType, AudioSource> soundTypeDictionary;
         [SerializeField] private AudioSource pigSnortSounds;
         [SerializeField] private AudioClip[] pigSoundVariants;
-        [SerializeField] private AudioSource peacefulTrack;
-        [SerializeField] private AudioSource stormTrack;
-        [SerializeField] private AudioSource mudSound; // Used for testing single sound effect
+        [SerializeField] private AudioSource farmAmbienceTrack;
+        [SerializeField] private AudioSource heavyRainTrack;
         [SerializeField] AudioMixerSnapshot unpausedSnap;
         [SerializeField] AudioMixerSnapshot pausedSnap;
+
+        [SerializeField]private PlayableDirector stormTimeline;
         private int lastClipIndex;
 
         #region Singleton Pattern
@@ -33,19 +35,19 @@ namespace Audio
         #region Dictionary for Audio Types
         private void Start()
         {
-            PopulateAudioTypeDictionarie();
+            PopulateAudioTypeDictionary();
         }
-        private void PopulateAudioTypeDictionarie()
+        private void PopulateAudioTypeDictionary()
         {
             soundTypeDictionary = new Dictionary<AudioType, AudioSource>
             {
-                { AudioType.PeacefulTrack, peacefulTrack },
-                { AudioType.StormTrack, stormTrack },
+                { AudioType.FarmAmbienceTrack, farmAmbienceTrack },
+                { AudioType.HeavyRainTrack, heavyRainTrack },
                 { AudioType.PigSnortSound_V, pigSnortSounds }
             };
         }
         #endregion
-
+        
         #region Control Sounds
         public void PlaySound(AudioType audioType)
         {
@@ -65,6 +67,26 @@ namespace Audio
             }
             if (!soundTypeDictionary[audioType].isPlaying)
                 soundTypeDictionary[audioType].Play();
+        }
+
+        public void PlaySoundFadeIn(AudioType audioType, float step)
+        {
+            if (!soundTypeDictionary.ContainsKey(audioType))
+            { 
+                Debug.LogWarning($"Audio Type: {audioType} cannot be found. Check AudioType class for compatible names");
+                return;
+            }
+
+            var track = soundTypeDictionary[audioType];
+            if (!track.isPlaying)
+            {
+                track.volume = 0f;
+                track.Play();
+                if (track.volume < 1f)
+                {
+                    track.volume = Mathf.Lerp(track.volume, 1f, step);
+                }
+            }
         }
         public void StopSound(AudioType audioType)
         {
@@ -98,6 +120,11 @@ namespace Audio
                 unpausedSnap.TransitionTo(time);
         }
         #endregion
+
+        public void StartStormTrackTimeline()
+        {
+            stormTimeline.Play();
+        }
     }
 }
 

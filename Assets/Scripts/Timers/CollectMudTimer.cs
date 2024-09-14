@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
+using AudioType = Audio.AudioType;
 
 public class CollectMudTimer : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class CollectMudTimer : MonoBehaviour
             yield return null;
         }
         OnTimeOver?.Invoke(); // Subs: RainManager & PlayerHudUpdateText & DirtyMeter & Falling Object spawner
+        AudioManager.Instance.StopSound(AudioType.FarmAmbienceTrack);
     }
 
     public void EndTimer()
