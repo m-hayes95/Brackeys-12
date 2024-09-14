@@ -6,6 +6,12 @@ namespace Audio
     {
         PigSnortSound_V,
         FarmAmbienceTrack,
-        HeavyRainTrack
+        HeavyRainTrack,
+        FallingObject,
+        DogHouseImpact,
+        TractorImpact,
+        RockImpact,
+        TreeStumpImpact,
+        UfoImpact
     }
 }

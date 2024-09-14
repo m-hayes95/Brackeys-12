@@ -16,6 +16,8 @@ namespace Audio
         [SerializeField] private AudioClip[] pigSoundVariants;
         [SerializeField] private AudioSource farmAmbienceTrack;
         [SerializeField] private AudioSource heavyRainTrack;
+        [SerializeField] private AudioSource fallingObject;
+        [SerializeField] private AudioClip[] impactSounds;
         [SerializeField] AudioMixerSnapshot unpausedSnap;
         [SerializeField] AudioMixerSnapshot pausedSnap;
 
@@ -43,7 +45,8 @@ namespace Audio
             {
                 { AudioType.FarmAmbienceTrack, farmAmbienceTrack },
                 { AudioType.HeavyRainTrack, heavyRainTrack },
-                { AudioType.PigSnortSound_V, pigSnortSounds }
+                { AudioType.PigSnortSound_V, pigSnortSounds },
+                { AudioType.FallingObject, fallingObject }
             };
         }
         #endregion
