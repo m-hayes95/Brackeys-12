@@ -7,7 +7,9 @@ public class FallingObject : MonoBehaviour
 {
     [SerializeField] float fallTime;
     [SerializeField] float despawnTime;
+    [SerializeField] private float cameraShakeIntensity;
     [SerializeField] Vector3 startScale;
+    
     [SerializeField] private GameObject fallingVisuals;
     [SerializeField] private GameObject groundVisuals;
     [SerializeField] Animator animator;
@@ -63,9 +65,10 @@ public class FallingObject : MonoBehaviour
 
     private void ObjectLanded()
     {
-        // play fall animation
         fallingVisuals.SetActive(false);
         groundVisuals.SetActive(true);
+        CameraShakeManager.instance.ShakeCamera(3, 0.1f);
+        // Play sound
         // Play landed animation
     }
     

@@ -7873,7 +7873,6 @@ MonoBehaviour:
   - {fileID: 2350222451400634431, guid: d729ea19bc9c81d45a75c4a2d2d3dcf0, type: 3}
   - {fileID: 233452735991560606, guid: 4a902e56fd4dbc541a2108208ec213b5, type: 3}
   - {fileID: 1343389354056568867, guid: ddade84a2a23ae34b8a99da8666927f6, type: 3}
-  canSpawn: 1
 --- !u!1 &2036702467
 GameObject:
   m_ObjectHideFlags: 0
