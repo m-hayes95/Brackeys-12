@@ -33,4 +33,10 @@ public class CameraShakeManager : MonoBehaviour
             }
         }
     }
+
+    public void ResetCamera()
+    {
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0;
+        shakeTimer = 0;
+    }
 }

@@ -55,6 +55,7 @@ public class GlobalVariables : MonoBehaviour
         playerMuddiness = 0;
 
         rain_Manager.ResetAllSplashScripts(); // Reset Rain Manager
+        rain_Manager.gameStarted = false; // Replace this in the future with a better 'game started' indicator
         playerMudPaintScript.ApplyTexture(); // Reset Paint Canvas Texture
         collectMudTimer.EndTimer();
 
@@ -65,5 +66,10 @@ public class GlobalVariables : MonoBehaviour
         playerAnimator.SetFloat("Muddiness", 0);
         playerAnimator.SetBool("Moving", false);
         //...
+    }
+
+    public float CalculatedScore()
+    {
+        return rain_Manager.TimeElapsed();
     }
 }

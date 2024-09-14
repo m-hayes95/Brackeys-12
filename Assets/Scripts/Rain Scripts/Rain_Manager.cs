@@ -37,7 +37,7 @@ public class Rain_Manager : MonoBehaviour
     [Header("Game Stats")]
     [SerializeField] float timeElapsed = 0; // Debug
     private float baseTimeElapsed = 0;
-    [SerializeField] bool gameStarted = false;
+    public bool gameStarted = false;
 
     private void OnEnable()
     {
@@ -223,5 +223,14 @@ public class Rain_Manager : MonoBehaviour
             baseTimeElapsed += Time.fixedDeltaTime;
             timeElapsed = Mathf.Round(baseTimeElapsed * 100) / 100;
         }
+        else
+        {
+            baseTimeElapsed = 0;
+        }
+    }
+
+    public float TimeElapsed()
+    {
+        return timeElapsed;
     }
 }

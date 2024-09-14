@@ -77,9 +77,8 @@ namespace Player
             if (currentMud < 0)
             {
                 currentMud = 0;
-                OnGameOver?.Invoke(); // No subs atm
-                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                Debug.LogError("Player was cleaned: Restart Game Here"); // Let's avoid scene loading and try make the game seamless 👍
+                CameraShakeManager.instance.ResetCamera();
+                MainMenuManager.instance.ShowResultsMenu();
             }
         }
 
@@ -93,29 +92,5 @@ namespace Player
             return currentMud;
         }
 
-        #region Code for tiles (not in use with painting script)
-        /*
-        private void FindCurrentTileInfo()
-        {
-            Vector3Int currentTileLocation = tileMap.WorldToCell(transform.position);
-            TileBase tile = tileMap.GetTile(currentTileLocation);
-            if (!tile)
-            {
-                //Debug.Log("No tiles found");
-                return;
-            }
-            if (tileData.tileType == GroundTileType)
-                CollectMudOnTile(currentTileLocation);
-        }
-        private void CollectMudOnTile(Vector3Int location)
-        {
-            // Add mud to player
-            currentMud++;
-            if (currentMud > 100)
-                currentMud = 100;
-            tileMap.SetTile(location, null);
-        }
-        */
-        #endregion
     }
 }
