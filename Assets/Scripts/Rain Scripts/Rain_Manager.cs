@@ -219,4 +219,9 @@ public class Rain_Manager : MonoBehaviour
             timeElapsed = Mathf.Round(baseTimeElapsed * 100) / 100;
         }
     }
+
+    public float TimeElapsed()
+    {
+        return timeElapsed;
+    }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using Audio;
 using Player;
+using TMPro;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,6 +13,8 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public static MainMenuManager instance;
+
     [Header("Components")]
     [SerializeField] Animator animator;
     [SerializeField] EventSystem eventSystem;
@@ -45,8 +49,19 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Vector3 cloudStartPos;
     [SerializeField] Vector3 cloudCentrePos = new();
     [SerializeField] Vector3 cloudEndPos;
+    [Header("Results Menu Variables")]
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] GameObject resultsObject;
 
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
     void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -173,6 +188,7 @@ public class MainMenuManager : MonoBehaviour
         mainMenuActive = true;
 
         animator.SetBool("Is Main Menu", true);
+        animator.ResetTrigger("Disappear");
         animator.SetTrigger("Appear");
         Time.timeScale = 1;
         yield break;
@@ -194,6 +210,28 @@ public class MainMenuManager : MonoBehaviour
             } 
             yield return null;
         }
+        yield break;
+    }
+
+    public void ShowResultsMenu()
+    {
+        resultsObject.SetActive(true);
+        Time.timeScale = 0;
+        canActivatePauseMenu = false;
+        scoreText.SetText("Score: " + Mathf.Round(GlobalVariables.instance.CalculatedScore()) * 69f); // 69 is a placeholder to make the score bigger than it already is
+        animator.SetTrigger("Results Appear");
+    }
+    public void HideResultsMenu()
+    {
+        StartCoroutine(HideResultsMenuRoutine());
+    }
+
+    IEnumerator HideResultsMenuRoutine()
+    {
+        animator.SetTrigger("Disappear");
+        yield return new WaitForSecondsRealtime(2);
+        resultsObject.SetActive(false);
+        StartCoroutine(EndGameSequence());
         yield break;
     }
 }

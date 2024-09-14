@@ -66,4 +66,9 @@ public class GlobalVariables : MonoBehaviour
         playerAnimator.SetBool("Moving", false);
         //...
     }
+
+    public float CalculatedScore()
+    {
+        return rain_Manager.TimeElapsed();
+    }
 }

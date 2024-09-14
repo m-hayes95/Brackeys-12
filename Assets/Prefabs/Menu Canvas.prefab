@@ -148,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2126629944611694089
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1204,7 +1204,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 516970892885688828}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: EndGame
+        m_MethodName: HideResultsMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3313,6 +3313,8 @@ MonoBehaviour:
   cloudStartPos: {x: 0, y: 540, z: 0}
   cloudCentrePos: {x: 0, y: 0, z: 0}
   cloudEndPos: {x: 0, y: -540, z: 0}
+  scoreText: {fileID: 1511869233583595581}
+  resultsObject: {fileID: 9090979867498593449}
 --- !u!95 &973665601643589148
 Animator:
   serializedVersion: 5
@@ -3636,7 +3638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &782445043374597184
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3953,7 +3955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6905556560267951961
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3961,7 +3963,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090979867498593449}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
