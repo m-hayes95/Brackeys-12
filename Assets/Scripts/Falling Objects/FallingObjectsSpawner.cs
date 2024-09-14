@@ -15,7 +15,7 @@ public class FallingObjectsSpawner : MonoBehaviour
     private List<GameObject> usedGameObjects = new List<GameObject>();
     private int currentGameObjectsInScene;
     private float currentTime;
-    private bool canSpawn;
+    [SerializeField]private bool canSpawn;
 
     private void Update()
     {

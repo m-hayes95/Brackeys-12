@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4043065197803254325
 Transform:
   m_ObjectHideFlags: 0
@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6890326337967758883}
   m_Father: {fileID: 1129230307167635001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2088071593049673945
@@ -159,7 +160,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -406905593, guid: 1db6649b1330a496ea9d4c04f24cb2b8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.44705883}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -202,7 +203,6 @@ Transform:
   m_Children:
   - {fileID: 6501428943643303519}
   - {fileID: 4043065197803254325}
-  - {fileID: 6890326337967758883}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2985882350579081494
@@ -218,13 +218,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallTime: 2
-  lifeTime: 1
-  fallSpeedMultiplier: 1
-  newFallTime: 0
-  newLifeTime: 0
+  despawnTime: 10
+  startScale: {x: 0.2, y: 0.2, z: 0.2}
+  fallingVisuals: {fileID: 1211050781490063371}
+  groundVisuals: {fileID: 511647795290286450}
   animator: {fileID: 6054224627627328048}
   polyHitBox: {fileID: 383350636843468734}
-  circleHitBox: {fileID: 0}
+  fallenObjectsDespawn: 0
 --- !u!95 &6054224627627328048
 Animator:
   serializedVersion: 5
@@ -355,12 +355,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5439132041220050634}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1129230307167635001}
+  m_Father: {fileID: 4043065197803254325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &383350636843468734
 PolygonCollider2D:
