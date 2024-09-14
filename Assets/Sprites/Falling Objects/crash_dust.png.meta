@@ -106,11 +106,37 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: crash_dust_Light_0
+      name: crash_1
       rect:
         serializedVersion: 2
         x: 7
@@ -118,7 +144,7 @@ TextureImporter:
         width: 25
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -131,7 +157,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_Dim_0
+      name: crash_3
       rect:
         serializedVersion: 2
         x: 65
@@ -139,7 +165,7 @@ TextureImporter:
         width: 30
         height: 59
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +178,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_Lightish_0
+      name: crash_2
       rect:
         serializedVersion: 2
         x: 36
@@ -160,7 +186,7 @@ TextureImporter:
         width: 28
         height: 49
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,7 +199,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_brown_0
+      name: crash_4
       rect:
         serializedVersion: 2
         x: 96
@@ -181,7 +207,7 @@ TextureImporter:
         width: 32
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,7 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_Dim_1
+      name: crash_small_3
       rect:
         serializedVersion: 2
         x: 65
@@ -202,7 +228,7 @@ TextureImporter:
         width: 15
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,7 +241,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_brownest_0
+      name: crash_5
       rect:
         serializedVersion: 2
         x: 128
@@ -223,7 +249,7 @@ TextureImporter:
         width: 32
         height: 66
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,7 +262,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_Light_1
+      name: crash_small_1
       rect:
         serializedVersion: 2
         x: 0
@@ -244,7 +270,7 @@ TextureImporter:
         width: 5
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -257,7 +283,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_Lightish_1
+      name: crash_small_2
       rect:
         serializedVersion: 2
         x: 32
@@ -265,7 +291,7 @@ TextureImporter:
         width: 9
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -278,7 +304,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_brown_1
+      name: crash_small_4
       rect:
         serializedVersion: 2
         x: 100
@@ -286,7 +312,7 @@ TextureImporter:
         width: 15
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -299,7 +325,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crash_dust_brownest_1
+      name: crash_small_5
       rect:
         serializedVersion: 2
         x: 135
@@ -307,7 +333,7 @@ TextureImporter:
         width: 13
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -330,6 +356,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      crash_1: 357969031
+      crash_2: -1817305238
+      crash_3: -1797380958
+      crash_4: 1046235818
+      crash_5: 233347203
       crash_dust_10: -564380810
       crash_dust_11: -832395605
       crash_dust_12: 2059627602
@@ -345,16 +376,11 @@ TextureImporter:
       crash_dust_7: -1297897638
       crash_dust_8: -758709923
       crash_dust_9: -626627273
-      crash_dust_Dim_0: -1797380958
-      crash_dust_Dim_1: 1831793117
-      crash_dust_Light_0: 357969031
-      crash_dust_Light_1: -302283616
-      crash_dust_Lightish_0: -1817305238
-      crash_dust_Lightish_1: 1428444544
-      crash_dust_brown_0: 1046235818
-      crash_dust_brown_1: -2019283212
-      crash_dust_brownest_0: 233347203
-      crash_dust_brownest_1: 1957866135
+      crash_small_1: -302283616
+      crash_small_2: 1428444544
+      crash_small_3: 1831793117
+      crash_small_4: -2019283212
+      crash_small_5: 1957866135
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
