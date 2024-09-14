@@ -11,7 +11,7 @@ namespace Audio
     {
         public static AudioManager Instance { get; private set; }
         private Dictionary<AudioType, AudioSource> soundTypeDictionary;
-        [SerializeField] private AudioSource pigSounds;
+        [SerializeField] private AudioSource pigSnortSounds;
         [SerializeField] private AudioClip[] pigSoundVariants;
         [SerializeField] private AudioSource peacefulTrack;
         [SerializeField] private AudioSource stormTrack;
@@ -41,7 +41,7 @@ namespace Audio
             {
                 { AudioType.PeacefulTrack, peacefulTrack },
                 { AudioType.StormTrack, stormTrack },
-                { AudioType.PigSound_V, pigSounds }
+                { AudioType.PigSnortSound_V, pigSnortSounds }
             };
         }
         #endregion
@@ -85,8 +85,7 @@ namespace Audio
             {
                 index = Random.Range(0, range);
             }
-
-            Debug.Log($"Played Pig sound {index}");
+            
             lastClipIndex = index;
             return index;
         }
