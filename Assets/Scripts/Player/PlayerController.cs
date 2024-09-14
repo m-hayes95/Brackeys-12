@@ -1,7 +1,5 @@
 using System.Collections;
 using Audio;
-using Unity.VisualScripting;
-using UnityEditor.Callbacks;
 using UnityEngine;
 using AudioType = Audio.AudioType;
 
@@ -39,12 +37,13 @@ namespace Player
         }
         private IEnumerator  PlayPigSounds()
         {
-            float delayRand = Random.Range(3f, 10f);
             doOnce = true;
-            while (true)
+            float delayRand = Random.Range(3f, 8f);
+            if (doOnce)
             {
-                AudioManager.Instance.PlaySound(AudioType.PigSound_V);
+                AudioManager.Instance.PlaySound(AudioType.PigSnortSound_V);
                 yield return new WaitForSeconds(delayRand);
+                Debug.Log("played pig snort");
                 doOnce = false;
             }
                

@@ -108,7 +108,7 @@ public class MainMenuManager : MonoBehaviour
         GlobalVariables.instance.StartGame();
 
         StartCoroutine(MudMeterTransition(true));
-
+        AudioManager.Instance.StartStormTrackTimeline();
         mudTimerScript.StartTimer(); // Start the Mud Timer
         yield break;
     }
