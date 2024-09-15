@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1129230307167635001, guid: 9384af9ad18c74ed996ff8aaab47d9f3, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.9890159
       objectReference: {fileID: 0}
     - target: {fileID: 1129230307167635001, guid: 9384af9ad18c74ed996ff8aaab47d9f3, type: 3}
       propertyPath: m_LocalRotation.x
@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1129230307167635001, guid: 9384af9ad18c74ed996ff8aaab47d9f3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.14780943
       objectReference: {fileID: 0}
     - target: {fileID: 1129230307167635001, guid: 9384af9ad18c74ed996ff8aaab47d9f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -116,6 +116,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 832519671, guid: 6f6055cd1334e47d28f8b2f84efebf02, type: 3}
+    - target: {fileID: 2985882350579081494, guid: 9384af9ad18c74ed996ff8aaab47d9f3, type: 3}
+      propertyPath: impactClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 792e71abe3e214fd6b1e839a5725b2d3, type: 3}
     - target: {fileID: 6601964741377280309, guid: 9384af9ad18c74ed996ff8aaab47d9f3, type: 3}
       propertyPath: m_Sprite
       value: 

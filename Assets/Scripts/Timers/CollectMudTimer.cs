@@ -37,6 +37,7 @@ public class CollectMudTimer : MonoBehaviour
     public void StartTimer()
     {
         coroutine = StartCoroutine(Timer());
+        AudioManager.Instance.StartStormTrackTimeline();
         currentTime = totalTime;
     }
 

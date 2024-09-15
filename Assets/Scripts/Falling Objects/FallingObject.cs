@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using Audio;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,8 @@ public class FallingObject : MonoBehaviour
     [SerializeField] float flashRate = 1;
     public float despawnTime;
     [SerializeField] float cameraShakeIntensity;
+    [SerializeField] AudioClip impactClip;
+    [SerializeField] AudioClip whistle;
 
     [Header("Sprites")]
 
@@ -28,6 +31,7 @@ public class FallingObject : MonoBehaviour
     [Header("Components")]
     [SerializeField] PolygonCollider2D polyHitBox;
     [SerializeField] Transform hitBoxTransform;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] Vector2 hitBoxStartScale = new(.2f,.2f);
     [SerializeField] Vector2 hitBoxEndScale = new(1,1);
     [SerializeField] float scaleTime = .2f;
@@ -56,6 +60,7 @@ public class FallingObject : MonoBehaviour
         outlineSprite.enabled = true;
 
         // INSERT SOUND : Whistle
+        audioSource.PlayOneShot(whistle);
 
         while (t < 1)
         {
@@ -69,9 +74,10 @@ public class FallingObject : MonoBehaviour
         shadowSprite.enabled = false;
         outlineSprite.enabled = false;
         mainSprite.enabled = true;
-        CameraShakeManager.instance.ShakeCamera(3, 0.1f);
+        CameraShakeManager.instance.ShakeCamera(1, 0.2f);
 
         // INSERT SOUND : Crash (sound based on fallen object)
+        audioSource.PlayOneShot(impactClip);
 
         t = 0;
         while (t < 1)
