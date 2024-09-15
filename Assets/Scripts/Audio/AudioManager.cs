@@ -16,13 +16,18 @@ namespace Audio
         [SerializeField] private AudioClip[] pigSoundVariants;
         [SerializeField] private AudioSource farmAmbienceTrack;
         [SerializeField] private AudioSource heavyRainTrack;
+        [SerializeField] private AudioClip[] rainSounds;
         [SerializeField] private AudioSource fallingObject;
         [SerializeField] private AudioClip[] impactSounds;
+        [SerializeField] private AudioSource mainMenuMusic; // Change music to clip array later
+        [SerializeField] private AudioSource runningMusic; // Change music to clip array later
         [SerializeField] AudioMixerSnapshot unpausedSnap;
         [SerializeField] AudioMixerSnapshot pausedSnap;
 
         [SerializeField]private PlayableDirector stormTimeline;
         private int lastClipIndex;
+        private int rainSoundIndex; // quick implementation >> change
+        private bool doOnce;
 
         #region Singleton Pattern
         private void Awake()
@@ -46,11 +51,13 @@ namespace Audio
                 { AudioType.FarmAmbienceTrack, farmAmbienceTrack },
                 { AudioType.HeavyRainTrack, heavyRainTrack },
                 { AudioType.PigSnortSound_V, pigSnortSounds },
-                { AudioType.FallingObject, fallingObject }
+                { AudioType.FallingObject, fallingObject },
+                { AudioType.RunningMusic, runningMusic },
+                { AudioType.MenuMusic, mainMenuMusic }
             };
         }
         #endregion
-        
+
         #region Control Sounds
         public void PlaySound(AudioType audioType)
         {
@@ -126,7 +133,45 @@ namespace Audio
 
         public void StartStormTrackTimeline()
         {
-            stormTimeline.Play();
+            //stormTimeline.Play();
+            Debug.Log($"Sound played from game start script and index set to {rainSoundIndex}");
+            if (rainSounds.Length > 0 && !doOnce)
+            {
+                PlayNextClip();
+            }
+        }
+
+        private void PlayNextClip()
+        {
+            if (rainSoundIndex < rainSounds.Length)
+            {
+                heavyRainTrack.clip = rainSounds[rainSoundIndex];
+                heavyRainTrack.Play();
+                Debug.Log($"rain started current sound playing = {heavyRainTrack.clip.name}");
+                Invoke(nameof(WaitForTrackEnd), heavyRainTrack.clip.length);
+            }
+
+            if (rainSoundIndex >= 3)
+            {
+                int lastTrackInArray = 2;
+                heavyRainTrack.clip = rainSounds[lastTrackInArray];
+                heavyRainTrack.Play();
+                Debug.Log($"rain started current sound playing = {heavyRainTrack.clip.name}");
+                Invoke(nameof(WaitForTrackEnd), heavyRainTrack.clip.length);
+            }
+        }
+
+        private void WaitForTrackEnd()
+        {
+            rainSoundIndex++; 
+            Debug.Log("Play next audio");
+            PlayNextClip();
+        }
+
+        public void ResetStormTrackLoop()
+        {
+            rainSoundIndex = 0;
+            doOnce = false;
         }
     }
 }

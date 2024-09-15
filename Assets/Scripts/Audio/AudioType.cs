@@ -8,6 +8,8 @@ namespace Audio
         FarmAmbienceTrack,
         HeavyRainTrack,
         FallingObject,
+        RunningMusic,
+        MenuMusic,
         DogHouseImpact,
         TractorImpact,
         RockImpact,

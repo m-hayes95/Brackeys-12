@@ -10,6 +10,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using AudioType = Audio.AudioType;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -106,9 +107,13 @@ public class MainMenuManager : MonoBehaviour
         mainMenuActive = false;
 
         GlobalVariables.instance.StartGame();
-
+        
         StartCoroutine(MudMeterTransition(true));
         mudTimerScript.StartTimer(); // Start the Mud Timer
+        AudioManager.Instance.StopSound(AudioType.MenuMusic);
+        AudioManager.Instance.PlaySound(AudioType.RunningMusic);
+        AudioManager.Instance.PlaySound(AudioType.FarmAmbienceTrack);
+        
         yield break;
     }
 
@@ -161,6 +166,10 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator EndGameSequence()
     {
+        AudioManager.Instance.ResetStormTrackLoop(); // Reset the storm track loop to play from the beginning
+        AudioManager.Instance.StopSound(AudioType.RunningMusic);
+        AudioManager.Instance.PlaySound(AudioType.MenuMusic);
+        
         animator.SetTrigger("Disappear");
         Debug.Log("Triggered Exit");
 
