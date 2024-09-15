@@ -811,7 +811,7 @@ MonoBehaviour:
     timePerPattern: 2
     rainSpeed: 1
     fallingObjects: 0
-  - duration: 10
+  - duration: 20
     timePerPattern: 1.5
     rainSpeed: 1.2
     fallingObjects: 1
@@ -819,7 +819,7 @@ MonoBehaviour:
     timePerPattern: 1
     rainSpeed: 1.5
     fallingObjects: 1
-  - duration: 10
+  - duration: 15
     timePerPattern: 1
     rainSpeed: 1.6
     fallingObjects: 2
@@ -828,6 +828,10 @@ MonoBehaviour:
     rainSpeed: 2
     fallingObjects: 2
   - duration: 10
+    timePerPattern: 0.75
+    rainSpeed: 2
+    fallingObjects: 3
+  - duration: 10
     timePerPattern: 0.5
     rainSpeed: 3
     fallingObjects: 2
@@ -835,8 +839,24 @@ MonoBehaviour:
     timePerPattern: 0.5
     rainSpeed: 3
     fallingObjects: 3
-  - duration: 5
-    timePerPattern: 0.1
+  - duration: 15
+    timePerPattern: 0.6
+    rainSpeed: 3.5
+    fallingObjects: 3
+  - duration: 15
+    timePerPattern: 0.4
+    rainSpeed: 3
+    fallingObjects: 3
+  - duration: 12
+    timePerPattern: 2
+    rainSpeed: 4
+    fallingObjects: 3
+  - duration: 16
+    timePerPattern: 0.4
+    rainSpeed: 1
+    fallingObjects: 2
+  - duration: 10
+    timePerPattern: 0.5
     rainSpeed: 4
     fallingObjects: 3
   currentWave: 0
