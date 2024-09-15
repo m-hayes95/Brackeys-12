@@ -1,76 +1,106 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class FallingObject : MonoBehaviour
 {
-    [SerializeField] float fallTime;
-    [SerializeField] float despawnTime;
-    [SerializeField] private float cameraShakeIntensity;
-    [SerializeField] Vector3 startScale;
+    [SerializeField] float fallTime = 3;
+    [SerializeField] float flashRate = 1;
+    public float despawnTime;
+    [SerializeField] float cameraShakeIntensity;
+
+    [Header("Sprites")]
+
+    [SerializeField] SpriteRenderer mainSprite;
+    [SerializeField] Color fadeStart;
+    [SerializeField] Color fadeEnd;
+    [SerializeField] SpriteRenderer shadowSprite;
+    [SerializeField] Color shadowStartColour;
+    [SerializeField] Color shadowEndColour;
+    [SerializeField] Transform shadowTransform;
+    [SerializeField] Vector2 shadowStartSize = new(.6f, .6f);
+    [SerializeField] Vector2 shadowEndSize = new(1,1);
+    [SerializeField] SpriteRenderer outlineSprite;
     
-    [SerializeField] private GameObject fallingVisuals;
-    [SerializeField] private GameObject groundVisuals;
-    [SerializeField] Animator animator;
-    [SerializeField] PolygonCollider2D polyHitBox; // If applicable
+    // [SerializeField] Animator animator;
+    [Header("Components")]
+    [SerializeField] PolygonCollider2D polyHitBox;
+    [SerializeField] Transform hitBoxTransform;
+    [SerializeField] Vector2 hitBoxStartScale = new(.2f,.2f);
+    [SerializeField] Vector2 hitBoxEndScale = new(1,1);
+    [SerializeField] float scaleTime = .2f;
+    private Coroutine coroutine;
 
-    [SerializeField] bool fallenObjectsDespawn;
-    private float currentTimer;
-
-    private void Start()
+    public void Fall()
     {
-        //transform.localScale(new Vector3(startScale, startScale, startScale));
         ApplyRandomRotation();
-        StartCoroutine(ObjectFalling(fallTime));
+        coroutine = StartCoroutine(LifeCycle());
     }
 
-    private void Update()
+    public void Despawn()
     {
-        if (fallenObjectsDespawn)
-            DespawnOnTimer();
-    }
-
-    private void DespawnOnTimer()
-    {
-        currentTimer += Time.deltaTime;
-        if (currentTimer >= despawnTime)
+        if (coroutine != null)
         {
-            gameObject.SetActive(false);
+            StopCoroutine(coroutine);   
         }
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator LifeCycle()
+    {
+        float newDespawnTime = Mathf.Max(0, despawnTime - fallTime - scaleTime);
+        float t = 0;
+        shadowSprite.enabled = true;
+        outlineSprite.enabled = true;
+
+        // INSERT SOUND : Whistle
+
+        while (t < 1)
+        {
+            t += Time.deltaTime / fallTime;
+            shadowSprite.color = Color.Lerp(shadowStartColour, shadowEndColour, t);
+            shadowTransform.localScale = Vector2.Lerp(shadowStartSize, shadowEndSize, t);
+            yield return null;
+        }
+        // Object Landed
+        mainSprite.color = fadeStart;
+        shadowSprite.enabled = false;
+        outlineSprite.enabled = false;
+        mainSprite.enabled = true;
+        CameraShakeManager.instance.ShakeCamera(3, 0.1f);
+
+        // INSERT SOUND : Crash (sound based on fallen object)
+
+        t = 0;
+        while (t < 1)
+        {
+            t += Time.deltaTime / scaleTime;
+            hitBoxTransform.localScale = Vector3.Lerp(hitBoxStartScale, hitBoxEndScale, t);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(newDespawnTime * .8f); // 80%
+
+        t = 0;
+        float ft = newDespawnTime * .2f; // 20%
+        while (t < 1) // Fade main sprite
+        {
+            t += Time.deltaTime / ft;
+            mainSprite.color = Color.Lerp(fadeStart, fadeEnd, t);
+            yield return null;
+        }
+
+        mainSprite.enabled = false;
+
+        gameObject.SetActive(false);
+
+        yield break;
     }
     private void ApplyRandomRotation()
     {
         float randomEulerAngleZ = Random.Range(0, 360);
         transform.Rotate(new Vector3(0f, 0f, randomEulerAngleZ));
     }
-
-    private IEnumerator ObjectFalling(float fallTime)
-    {
-        transform.localScale = startScale;
-        Vector3 endScale = Vector3.one;
-        float elapsed = 0f;
-        
-        while (elapsed < fallTime)
-        {
-            float time = elapsed / fallTime;
-            transform.localScale = Vector3.Lerp(startScale, endScale, time);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        
-        transform.localScale = endScale;
-        ObjectLanded();
-    }
-
-    private void ObjectLanded()
-    {
-        fallingVisuals.SetActive(false);
-        groundVisuals.SetActive(true);
-        CameraShakeManager.instance.ShakeCamera(3, 0.1f);
-        // Play sound
-        // Play landed animation
-    }
-    
-    
 }
