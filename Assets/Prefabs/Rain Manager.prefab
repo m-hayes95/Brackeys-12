@@ -728,6 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1858035abe8fd4425b83a64898ac8b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallingObjectsSpawner: {fileID: 0}
   rainSpawnPositions:
   - {fileID: 2332995094179880681}
   - {fileID: 4919206421116724542}
@@ -806,21 +807,38 @@ MonoBehaviour:
   rainSplashFolder: {fileID: 4280308307991460665}
   mode: 2
   rainWaves:
-  - duration: 5
+  - duration: 10
     timePerPattern: 2
     rainSpeed: 1
+    fallingObjects: 0
   - duration: 10
     timePerPattern: 1.5
     rainSpeed: 1.2
+    fallingObjects: 1
   - duration: 10
     timePerPattern: 1
     rainSpeed: 1.5
+    fallingObjects: 1
+  - duration: 10
+    timePerPattern: 1
+    rainSpeed: 1.6
+    fallingObjects: 2
   - duration: 15
     timePerPattern: 0.75
     rainSpeed: 2
-  - duration: 20
+    fallingObjects: 2
+  - duration: 10
     timePerPattern: 0.5
     rainSpeed: 3
+    fallingObjects: 2
+  - duration: 15
+    timePerPattern: 0.5
+    rainSpeed: 3
+    fallingObjects: 3
+  - duration: 5
+    timePerPattern: 0.1
+    rainSpeed: 4
+    fallingObjects: 3
   currentWave: 0
   randomSplashMin: 5
   randomSplashMax: 11

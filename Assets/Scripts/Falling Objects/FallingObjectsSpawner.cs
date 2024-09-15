@@ -9,112 +9,99 @@ public class FallingObjectsSpawner : MonoBehaviour
     [SerializeField] private float spawnTimer;
     [SerializeField] private int maxObjectsCanSpawn;
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
-    [SerializeField] private List<GameObject> fallingObjects = new List<GameObject>();
+    [SerializeField] GameObject[] prefabs;
+    [SerializeField] List<GameObject> fallingObjects;
+    [SerializeField] List<FallingObject> fallingObjectScripts;
+    [SerializeField] Transform folder;
 
-    private List<Vector3> usedSpawnPoints = new List<Vector3>();
-    private List<GameObject> usedGameObjects = new List<GameObject>();
-    private List<GameObject> inSceneGameObjects = new List<GameObject>();
+    // Use HashSet for O(1) lookups instead of List
+    private HashSet<Vector3> usedSpawnPoints = new HashSet<Vector3>();
+    private HashSet<GameObject> usedGameObjects = new HashSet<GameObject>();
+
     private int currentGameObjectsInScene;
     private float currentTime;
     private bool canSpawn = false;
 
-    #region Event Subscription
-    private void OnEnable()
+    void Start()
     {
-        CollectMudTimer.OnTimeOver += GameStarted;
-    }
-
-    private void OnDisable()
-    {
-        CollectMudTimer.OnTimeOver -= GameStarted;
-    }
-    #endregion
-
-    private void GameStarted()
-    {
-        canSpawn = true;
-    }
-    private void Update()
-    {
-        if (canSpawn && !GlobalVariables.gamePaused)
+        foreach (var item in prefabs)
         {
-            SpawnObjects();
-        }
-
-        if (Input.GetKeyDown(KeyCode.M))
-            ClearOnScreenObjects();
-    }
-
-    private void SpawnObjects()
-    {
-        if (currentGameObjectsInScene < maxObjectsCanSpawn) 
-        {
-            SpawnNextObjectTimer();
+            GameObject spawnedObject = Instantiate(item, Vector3.zero, quaternion.identity, folder);
+            fallingObjects.Add(spawnedObject);
+            fallingObjectScripts.Add(spawnedObject.GetComponent<FallingObject>());
+            spawnedObject.SetActive(false);
         }
     }
 
     #region Drop an object
-
-    private void SpawnNextObjectTimer()
+    public void DropObject(int length, float duration)
     {
-        currentTime += Time.deltaTime;
-        if (currentTime >= spawnTimer)
+        usedGameObjects.Clear();
+        usedSpawnPoints.Clear();
+
+        // Ensure we don't exceed the maxObjectsCanSpawn limit
+        int objectsToSpawn = Mathf.Min(length, maxObjectsCanSpawn - currentGameObjectsInScene);
+
+        for (int i = 0; i < objectsToSpawn; i++)
         {
-            currentTime = 0;
-            currentGameObjectsInScene++;
-            InstantiateNewObject();
+            int objectNum = FindFallingObject();
+            Vector3 spawnPosition = FindRandomPosition();
+
+            // Activate and position the object
+            GameObject fallingObject = fallingObjects[objectNum];
+            fallingObject.SetActive(true);
+            fallingObject.transform.position = spawnPosition;
+
+            // Set despawn time and trigger fall
+            FallingObject fallingObjectScript = fallingObjectScripts[objectNum];
+            fallingObjectScript.despawnTime = duration;
+            fallingObjectScript.Fall();
         }
-            
-    }
-    private void InstantiateNewObject()
-    {
-        GameObject spawned = Instantiate(FindFallingObject(), FindRandomPosition(), quaternion.identity);
-        inSceneGameObjects.Add(spawned);
-    }
-    #endregion
-    
-    #region Get random object and spawn position not in use
 
-    private GameObject FindFallingObject()
+        // Update the current game objects count in the scene
+        currentGameObjectsInScene += objectsToSpawn;
+    }
+
+    private int FindFallingObject()
     {
-        GameObject newFallingObject;
-        do
+        // Find a random inactive object
+        int randomIndex = Random.Range(0, fallingObjects.Count);
+        while (usedGameObjects.Contains(fallingObjects[randomIndex]))
         {
-            int randomIndex = Random.Range(0, fallingObjects.Count);
-            newFallingObject = fallingObjects[randomIndex];
-        } 
-        while (usedGameObjects.Contains(newFallingObject));
-        
-        usedGameObjects.Add(newFallingObject);
-        return newFallingObject;
+            randomIndex = Random.Range(0, fallingObjects.Count);
+        }
+
+        usedGameObjects.Add(fallingObjects[randomIndex]); // Mark as used
+
+        return randomIndex;
     }
 
     private Vector3 FindRandomPosition()
     {
+        // Find a random unused spawn point
         Vector3 newPosition;
         do
         {
             int randomIndex = Random.Range(0, spawnPoints.Count);
-            newPosition = spawnPoints[randomIndex].transform.position;
+            newPosition = spawnPoints[randomIndex].position;
         } 
-        while (usedSpawnPoints.Contains(newPosition));
-        
-        usedSpawnPoints.Add(newPosition);
+        while (usedSpawnPoints.Contains(newPosition)); // Repeat if position is already used
+
+        usedSpawnPoints.Add(newPosition); // Mark spawn point as used
         return newPosition;
     }
-    
     #endregion
 
-    private void ClearOnScreenObjects()
+    public void ClearOnScreenObjects() // Clear all Fallen Objects
     {
-        if (inSceneGameObjects.Count > 0)
+        foreach (FallingObject item in fallingObjectScripts)
         {
-            foreach (GameObject o in inSceneGameObjects)
-            {
-                o.SetActive(false);
-                Debug.Log($"Removed {o.name}");
-            }
+            item.Despawn();
         }
-        
+
+        usedGameObjects.Clear();
+        usedSpawnPoints.Clear();
+
+        currentGameObjectsInScene = 0;
     }
 }

@@ -58,6 +58,7 @@ public class GlobalVariables : MonoBehaviour
         rain_Manager.gameStarted = false; // Replace this in the future with a better 'game started' indicator
         playerMudPaintScript.ApplyTexture(); // Reset Paint Canvas Texture
         collectMudTimer.EndTimer();
+        CameraShakeManager.instance.ResetCamera(); // Reset Screen Shake ICE
 
         // Reset Player Position and Rotation
         playerTransform.position = new Vector3(0,0,playerTransform.position.z);

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Rain_Manager : MonoBehaviour
 {
     public static Rain_Manager instance;
+    [SerializeField] FallingObjectsSpawner fallingObjectsSpawner;
     [SerializeField] Transform[] rainSpawnPositions;
     [SerializeField] List<int> availableRainSplashes = new List<int>();
     [SerializeField] List<SplashScript> rainSplashScripts = new List<SplashScript>();
@@ -23,12 +24,13 @@ public class Rain_Manager : MonoBehaviour
         public float duration; // Duration of the wave
         public float timePerPattern; // Time per rain pattern
         public float rainSpeed; // Animation Speed of each rain
+        public int fallingObjects; // Falling Objects to spawn
     }
 
     [SerializeField] List<Wave> rainWaves = new List<Wave>();
     [SerializeField] int currentWave = 0;
 
-    [Header("Pattern Stats")]
+    [Header("Splashes Stats")]
     [SerializeField] int randomSplashMin = 5;
     [SerializeField] int randomSplashMax = 11;
     [SerializeField] int scatterSplashMin = 8;
@@ -115,6 +117,7 @@ public class Rain_Manager : MonoBehaviour
         {
             Wave current = rainWaves[currentWave];
             float elapsedTime = 0;
+            TriggerFallingObject();
             Debug.Log("Wave " + currentWave + " Started. Duration: " + current.duration);
             while (elapsedTime < current.duration)
             {
@@ -136,12 +139,14 @@ public class Rain_Manager : MonoBehaviour
             {
                 gameStarted = false;
                 Debug.Log("Rain waves ended.");
+                yield break;
             }
             else if (currentWave >= rainWaves.Count && mode == RainMode.WavesEndless)
             {
                 currentWave = rainWaves.Count - 1; // Loop the final wave
                 Debug.Log("Rain wave " + currentWave + " Looped");
             }
+            yield return null;
         }
     }
 
@@ -198,10 +203,14 @@ public class Rain_Manager : MonoBehaviour
         }
     }
 
-    // void TriggerFallingObject()
-    // {
-    //     fallingObjectsManager.DropObject();
-    // }
+    void TriggerFallingObject()
+    {
+        Wave current = rainWaves[currentWave];
+        if (current.fallingObjects > 0)
+        {
+            fallingObjectsSpawner.DropObject(current.fallingObjects, current.duration);
+        }
+    }
 
     public void ReturnSplashID(int ID)
     {
@@ -214,6 +223,8 @@ public class Rain_Manager : MonoBehaviour
         {
             item.ResetSplash();
         }
+        fallingObjectsSpawner.ClearOnScreenObjects();
+        currentWave = 0;
     }
 
     void FixedUpdate()

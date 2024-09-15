@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1801648976147290156, guid: 9384af9ad18c74ed996ff8aaab47d9f3, type: 3}
       propertyPath: m_Name
-      value: Falling Object (Root)
+      value: Falling Object (Variant) Dog House
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

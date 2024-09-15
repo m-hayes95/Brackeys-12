@@ -50,7 +50,7 @@ public class SplashScript : MonoBehaviour
         rainSpeedMultiplier = GlobalVariables.rainSpeedMultiplier;
         newFallTime = fallTime / rainSpeedMultiplier;
         newSplashTime = splashTotalTime / rainSpeedMultiplier;
-        Debug.Log("Fall Speed = " + newFallTime);
+        // Debug.Log("Fall Speed = " + newFallTime);
 
         // Set animator speed for fall animation
         animator.SetFloat("Speed", 1 / newFallTime);
@@ -60,14 +60,14 @@ public class SplashScript : MonoBehaviour
         animator.SetTrigger("Shadow");
 
         // Wait for the falling animation to complete
-        Debug.Log("Wait for Fall: " + newFallTime);
+        // Debug.Log("Wait for Fall: " + newFallTime);
         yield return new WaitForSeconds(newFallTime);
 
         // Trigger the splash animation
         animator.ResetTrigger("Shadow");
         animator.SetTrigger("Splash");
         animator.SetFloat("Speed", 1 / newSplashTime);
-        Debug.Log("Splash Speed = " + newSplashTime);
+        // Debug.Log("Splash Speed = " + newSplashTime);
 
         // Hide shadow, show splash
         // shadowSpriteRenderer.enabled = false;
